@@ -9,6 +9,12 @@ __Description__: Clock UI
 from Tkinter import *
 
 class UI_Clock():
+    '''
+    Class UI_Clock
+    function:
+        - drawClock()
+        - updateClock(newTime)
+    '''
     
     def __init__(self,height,parent):
         self.timeTop = StringVar()
@@ -21,6 +27,9 @@ class UI_Clock():
         #self.champ_clockTop = Label(self.frameClock, textvariable = self.timeTop,bg="black",fg="red",font=("Digital-7",50))
         #self.champ_clockBottom = Label(self.frameClock, textvariable = self.timeBottom,bg="black",fg="red",font=("Digital-7",45),justify="center")  
         
+    '''
+    Draw the initial clock
+    '''
     def drawClock(self):
         self.frameClock.pack_propagate(False)
         self.frameClock.grid(row=0,column=1)
@@ -29,6 +38,9 @@ class UI_Clock():
         self.champ_clockTop.pack(expand=True)
         self.champ_clockBottom.pack()
     
+    '''
+    Update the clock
+    '''
     def updateClock(self,newTime):
         self.timeTop.set(newTime[0])
         self.timeBottom.set(newTime[1])

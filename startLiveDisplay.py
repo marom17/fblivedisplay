@@ -13,11 +13,12 @@ from controller import Controller
 from ui import UI
 print "Start LiveDisplay"
 
-
+#create and start the usre interface
 userInterface = UI()
 userInterface.start()
 
 time.sleep(1)
+#start the controllers
 updateManager = Controller(userInterface)
 
 updateManager.start()

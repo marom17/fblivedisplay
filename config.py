@@ -1,12 +1,13 @@
 '''
-Created on 27 sept. 2017
-
-@author: Romain Maillard
+__Author__: Romain Maillard
+__Date__: 27.09.2017
+__Name__: config.py
+__Description__: Read the configuration file
 '''
 
 import ConfigParser
 
-
+#parse the config file
 config = ConfigParser.RawConfigParser()
 config.read('livedisplay.conf')
 

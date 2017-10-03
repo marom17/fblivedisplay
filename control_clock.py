@@ -10,7 +10,13 @@ import time
 from threading import Thread
 
 class Clock(Thread):
-
+    '''
+    Class Clock
+    functions:
+        - run()
+        - update()
+        - stop()
+    '''
     def __init__(self,controller):
         Thread.__init__(self)
         self.running = True
@@ -18,12 +24,19 @@ class Clock(Thread):
         
     def run(self):
         while self.running:
+            #change the time display in the UI
             self.controller.updateClock(self.update())
             time.sleep(0.5)
             
+    '''
+    Return the actual local time
+    '''
     def update(self):
         actualTime = time.strftime("%H:%M%S",time.localtime())
         return [actualTime[:-2],actualTime[-2:]]
     
+    '''
+    Stop the loop
+    '''
     def stop(self):
         self.running = False

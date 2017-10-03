@@ -3,7 +3,7 @@ __Author__: Romain Maillard
 __Date__: 27.09.2017
 __Name__: updater.py
 __Description__: Update all systems
-
+@todo: put updateClock, updateOnline and updateOnair in sub controllers
 """
 
 from threading import Thread
@@ -15,18 +15,30 @@ from control_musicPorgress import MusicProgress
 from control_newSong import NewSong
 
 class Controller(Thread):
-    
+    '''
+    Class Controller
+    functions:
+        - run()
+        - stop()
+        - updateClock(newTime)
+        - updateOnline(newStatus)
+        - updateOnair(newStatus)
+    '''
     def __init__(self, ui):
         Thread.__init__(self)
         
         self.ui = ui
         self.running = True
+        #initialize all controllers
         self.clock = Clock(self)
         self.online = OnlineStatus(self)
         self.onair = AxiaOnair(self)
         self.musicprogress = MusicProgress(self.ui.music)
         self.newSong = NewSong(self.musicprogress)
         
+    '''
+    Start all the controllers
+    '''
     def run(self):
         print "Update Start"
         self.clock.start()
@@ -44,6 +56,9 @@ class Controller(Thread):
         self.newSong.join()
         self.musicprogress.join()
             
+    '''
+    Stop all the controllers
+    '''
     def stop(self):
         print "Update stop"
         self.running = False
@@ -53,12 +68,18 @@ class Controller(Thread):
         self.newSong.stop()
         self.musicprogress.stop()
         
+    '''
+    Update the clock
+    '''
     def updateClock(self, newTime):
         try:
             self.ui.clock.updateClock(newTime)
         except:
             print "Error"
-        
+      
+    '''
+    Update the online status
+    '''  
     def updateOnline(self, newStatus):
         try:
             if(newStatus):
@@ -70,7 +91,10 @@ class Controller(Thread):
                 self.ui.online.updateOnline("Error", "yellow")
         except:
             print "Error"
-            
+       
+    '''
+    Update the Onair status
+    '''     
     def updateOnair(self, newStatus):
         try:
             if(newStatus != 2):
