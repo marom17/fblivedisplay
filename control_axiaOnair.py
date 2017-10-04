@@ -39,7 +39,8 @@ class AxiaOnair(Thread):
             except :
                 self.socket.close()
                 #Error message on UI
-                self.controller.updateOnair(3)
+                self.controller.updateOnair(2)
+                time.sleep(3)
                 break;
                 
             try:
