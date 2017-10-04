@@ -23,6 +23,8 @@ class UI_Music():
         self.frameInfos = Frame(self.frameMusic,bg="black",width=width,height=(2*height/3))
         self.title = StringVar()
         self.title.set("")
+        self.artist = StringVar()
+        self.artist.set("")
         self.startTime = StringVar()
         self.startTime.set("")
         self.progress = IntVar()
@@ -47,6 +49,7 @@ class UI_Music():
         
         #configure object
         self.progressBar = ttk.Progressbar(self.frameInfos,orient=HORIZONTAL,length=(width-100),mode='determinate',variable=self.progress)
+        self.champ_artist = Label(self.frameInfos,textvariable=self.artist,bg="black",fg="white",font=("Times New Roman",30),wraplength=(width-5),height=1,anchor="nw")
         self.champ_title = Label(self.frameInfos,textvariable=self.title,bg="black",fg="white",font=("Times New Roman",30),wraplength=(width-5),height=1,anchor="nw")
         self.champ_time = Label(self.frameInfos,textvariable=self.startTime,bg="black",fg="white",font=("Times New Roman",30))
      
@@ -61,6 +64,7 @@ class UI_Music():
         self.frameInfos.place(relx=.5, rely=.5, anchor="c")
         self.frameInfos.pack()
         #.champ_title.place(relx=.5, rely=.5, anchor="c")
+        self.champ_artist.pack()
         self.champ_title.pack()
         #self.progressBar.place(relx=.5, rely=.5, anchor="c")
         self.champ_time.pack()
@@ -73,8 +77,9 @@ class UI_Music():
     Update the music name
     ''' 
     def updateMusic(self,data):
-        string = data[0].upper()+"/"+data[1]
-        self.title.set(string)
+        #string = data[0].upper()+"/"+data[1]
+        self.artist.set(data[0].upper())
+        self.title.set(data[1])
         
     '''
     Update the time remaning
