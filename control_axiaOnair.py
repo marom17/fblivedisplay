@@ -40,14 +40,16 @@ class AxiaOnair(Thread):
                 self.socket.close()
                 #Error message on UI
                 self.controller.updateOnair(2)
+                print "No connection"
                 time.sleep(3)
-                break;
+                continue
+                #break;
                 
             try:
                 #check the GPO and send the result
                 self.socket.sendall("GPO "+config.axiagpio+"\r\n")
                 data = self.socket.recv(2048)
-                if not data: break
+                if not data: continue
                 stringdata = data.decode('utf-8')
                 
                 gpo = "GPO " + config.axiagpio
@@ -60,6 +62,7 @@ class AxiaOnair(Thread):
                         self.controller.updateOnair(0)   
             except:
                 self.controller.updateOnair(3)
+                print "Error Data"
             self.socket.close()
             time.sleep(0.5)
     '''
