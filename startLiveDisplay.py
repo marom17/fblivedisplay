@@ -8,21 +8,24 @@ __Description__: Load configuration, start UI
 
 import config
 import time
+from queue import Queue
 
 from controller import Controller
 from ui import UI
 print "Start LiveDisplay"
 
+updateQueue = Queue()
 #create and start the usre interface
-userInterface = UI()
-userInterface.start()
-
-time.sleep(1)
+userInterface = UI(updateQueue)
+#userInterface.start()
+userInterface.drawMainWindow()
+#time.sleep(1)
 #start the controllers
-updateManager = Controller(userInterface)
+updateManager = Controller(userInterface,updateQueue)
 
 updateManager.start()
-userInterface.join()
+userInterface.startMainLoop()
+#userInterface.join()
 updateManager.stop()
 updateManager.join()
 

@@ -24,9 +24,9 @@ class Controller(Thread):
         - updateOnline(newStatus)
         - updateOnair(newStatus)
     '''
-    def __init__(self, ui):
+    def __init__(self, ui, updateQueue):
         Thread.__init__(self)
-        
+        self.updateQueue = updateQueue
         self.ui = ui
         self.running = True
         #initialize all controllers

@@ -21,4 +21,4 @@ setup(  name = "FB Live Display",
         description = "Display information about studio status and music",
         author = "Romain Maillard",
         options = {"build_exe": {'include_files':includefiles}},
-        executables = [Executable("startLiveDisplay.py", base="Win32GUI",targetName="LiveDisplay.exe",icon="")])
+        executables = [Executable("startLiveDisplay.py", base="Win32GUI",targetName="LiveDisplay.exe")])

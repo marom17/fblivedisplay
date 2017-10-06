@@ -14,6 +14,7 @@ from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
+import Queue
 
 class UI(Thread):
     '''
@@ -25,9 +26,11 @@ class UI(Thread):
         - drawTopFrame()
         - drawottomFrame()
     '''
-    def __init__(self):
+    def __init__(self,updateQueue):
         Thread.__init__(self)
+        self.updateQueue = updateQueue
         self.mainWindow = Tk()
+        self.running = True
         #check if we active fullscreen
         if(not config.settingFullscreen):
             self.mainWindow.geometry(config.settingScreen)
@@ -54,15 +57,34 @@ class UI(Thread):
             self.mainWindow.mainloop()
         except:
             print "Unexpected error:", sys.exc_info()[0]
-    
+    '''
+    Check ui update
+    '''
+    def getUpdate(self):
+        if(self.running):
+            try:
+                self.updateQueue.get(block=False)
+            except Queue.Empty:
+                pass;
+            self.mainWindow.after(300,self.getUpdate)
+    '''
+    Draw the main window
+    '''
     def drawMainWindow(self):
         print "Start UI"
         #self.drawFrame()
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
         self.drawFrame()
+        
+    '''
+    Start the big loop
+    '''
+    def startMainLoop(self):
         try:
+            self.mainWindow.after(0, self.getUpdate)
             self.mainWindow.mainloop()
+            self.running = False
         except:
             print "Unexpected error:", sys.exc_info()[0]
     '''
