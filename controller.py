@@ -33,7 +33,7 @@ class Controller(Thread):
         self.clock = Clock(self)
         self.online = OnlineStatus(self)
         self.onair = AxiaOnair(self)
-        self.musicprogress = MusicProgress(self.ui.music)
+        self.musicprogress = MusicProgress(self)
         self.newSong = NewSong(self.musicprogress)
         
     '''

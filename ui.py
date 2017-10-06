@@ -56,10 +56,11 @@ class UI():
                         self.onair.updateOnair(UIupdate[1], UIupdate[2])
                     elif("online" in UIupdate[0]):
                         self.online.updateOnline(UIupdate[1], UIupdate[2])
-                    elif("newSong"):
-                        print "newSonf"
-                    elif("progress"):
-                        print "progress"
+                    elif("newSong" in UIupdate[0]):
+                        self.music.updateMusic(UIupdate[1])
+                    elif("progress" in UIupdate[0]):
+                        self.music.updateBar(UIupdate[1], UIupdate[2])
+                        self.music.updateTime(UIupdate[3])
             except Queue.Empty:
                 pass;
             self.mainWindow.after(300,self.getUpdate)

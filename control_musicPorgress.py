@@ -18,11 +18,11 @@ class MusicProgress(Thread):
         -newSong(intro,duration,title,artist)
         - converTime(seconds)
     '''
-    def __init__(self,musicUI):
+    def __init__(self,controller):
         Thread.__init__(self)
         
         self.running = True
-        self.musicUI = musicUI
+        self.controller = controller
         self.intro = 0
         self.timesong = 0
         self.startTime = 0
@@ -35,6 +35,7 @@ class MusicProgress(Thread):
 
         while(self.running):
             try:
+                updateData = ["progress"]
                 timepassed = (int(time.time()) - self.startTime)
                 
                 #check if the time passed is higher that the time song
@@ -45,20 +46,26 @@ class MusicProgress(Thread):
                         if(timepassed >= self.intro):
                             self.onIntro = False
                         progress = int((timepassed/float(self.intro))*100) 
-                        self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        self.musicUI.updateTime(self.convertTime(self.intro - timepassed))
+                        updateData.append(progress)
+                        updateData.append("intro.Horizontal.TProgressbar")
+                        updateData.append(self.convertTime(self.intro - timepassed))
                     else:
                         
                         #change the color of the progressbar on the progress of the song
                         if(progress<70):
-                            self.musicUI.updateBar(progress,"begin.Horizontal.TProgressbar")
+                            updateData.append(progress)
+                            updateData.append("begin.Horizontal.TProgressbar")
                         elif(progress<85):
-                            self.musicUI.updateBar(progress,"nend.Horizontal.TProgressbar")
+                            updateData.append(progress)
+                            updateData.append("nend.Horizontal.TProgressbar")
                         elif(progress<100):
-                            self.musicUI.updateBar(progress,"end.Horizontal.TProgressbar")
+                            updateData.append(progress)
+                            updateData.append("end.Horizontal.TProgressbar")
                         else:
-                            self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
+                            updateData.append(progress)
+                            updateData.append("intro.Horizontal.TProgressbar")
+                        updateData.append(self.convertTime(self.intro - timepassed))
+                    self.controller.addUpdate(updateData)
             except:
                 print "Error music"
             time.sleep(0.5)
@@ -75,6 +82,7 @@ class MusicProgress(Thread):
     def newSong(self,intro,duration,title,artist):
         self.startTime = int(time.time())
         self.intro = intro
+        updateDataSong = ["newSong"]
         #check if there is an intro to the song
         if(intro > 0):
             self.onIntro = True
@@ -82,7 +90,8 @@ class MusicProgress(Thread):
             self.onIntro = False
         self.timesong = duration
         try:
-            self.musicUI.updateMusic([artist,title])
+            updateDataSong.append([artist,title])
+            self.controller.addUpdate(updateDataSong)
         except:
             print "Error new Song"
     
