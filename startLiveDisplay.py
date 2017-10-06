@@ -17,15 +17,12 @@ print "Start LiveDisplay"
 updateQueue = Queue()
 #create and start the usre interface
 userInterface = UI(updateQueue)
-#userInterface.start()
 userInterface.drawMainWindow()
-#time.sleep(1)
 #start the controllers
 updateManager = Controller(userInterface,updateQueue)
 
 updateManager.start()
 userInterface.startMainLoop()
-#userInterface.join()
 updateManager.stop()
 updateManager.join()
 

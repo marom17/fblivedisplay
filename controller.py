@@ -72,11 +72,21 @@ class Controller(Thread):
     Update the clock
     '''
     def updateClock(self, newTime):
-        try:
-            self.ui.clock.updateClock(newTime)
-        except:
-            print "Error"
-      
+        #try:
+        update = []
+        update.append("clock")
+        update.append(newTime)
+        self.addUpdate(update)
+            #self.ui.clock.updateClock(newTime)
+        #except:
+        #    print "Error"
+            
+    '''
+    Add an update to the updateQueue
+    ''' 
+    def addUpdate(self,update):
+        self.updateQueue.put(update)
+        
     '''
     Update the online status
     '''  

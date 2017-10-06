@@ -7,7 +7,6 @@ __Description__: User interface
 """
 
 from Tkinter import *
-from threading import Thread
 from ui_clock import UI_Clock
 from ui_onair import UI_Onair
 from ui_online import UI_Online
@@ -16,7 +15,7 @@ import config
 import sys
 import Queue
 
-class UI(Thread):
+class UI():
     '''
     Class UI
     functions:
@@ -27,7 +26,6 @@ class UI(Thread):
         - drawottomFrame()
     '''
     def __init__(self,updateQueue):
-        Thread.__init__(self)
         self.updateQueue = updateQueue
         self.mainWindow = Tk()
         self.running = True
@@ -42,31 +40,29 @@ class UI(Thread):
         self.mainWindow.resizable(False, False) 
         
         
-        self.mainWindow.bind("<Key>",self.keyPressed)     
+        self.mainWindow.bind("<Key>",self.keyPressed)
         
-    '''
-    Draw the main window and all the subview
-    '''
-    def run(self):
-        print "Start UI"
-        #self.drawFrame()
-        self.mainWindow.update_idletasks()
-        self.mainWindow.update()
-        self.drawFrame()
-        try:
-            self.mainWindow.mainloop()
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
     '''
     Check ui update
     '''
     def getUpdate(self):
         if(self.running):
             try:
-                self.updateQueue.get(block=False)
+                UIupdate = self.updateQueue.get(block=False)
+                print UIupdate
+                if("clock" in UIupdate[0]):
+                    self.clock.updateClock(UIupdate[1])
+                elif("onair" in UIupdate[0]):
+                    print "onair"
+                elif("online" in UIupdate[0]):
+                    print "online"
+                elif("newSong"):
+                    print "newSonf"
+                elif("progress"):
+                    print "progress"
             except Queue.Empty:
                 pass;
-            self.mainWindow.after(300,self.getUpdate)
+            self.mainWindow.after(50,self.getUpdate)
     '''
     Draw the main window
     '''
