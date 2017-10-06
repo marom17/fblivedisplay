@@ -8,7 +8,7 @@ __Description__: Load configuration, start UI
 
 import config
 import time
-from queue import Queue
+from Queue import Queue
 
 from controller import Controller
 from ui import UI
