@@ -54,9 +54,8 @@ class UI():
                         self.clock.updateClock(UIupdate[1])
                     elif("onair" in UIupdate[0]):
                         self.onair.updateOnair(UIupdate[1], UIupdate[2])
-                        print "onair"
                     elif("online" in UIupdate[0]):
-                        print "online"
+                        self.online.updateOnline(UIupdate[1], UIupdate[2])
                     elif("newSong"):
                         print "newSonf"
                     elif("progress"):

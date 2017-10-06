@@ -79,13 +79,20 @@ class Controller(Thread):
     '''  
     def updateOnline(self, newStatus):
         try:
+            updateData = ["online"]
             if(newStatus):
                 if(newStatus[1]):
-                    self.ui.online.updateOnline("Online", "green")
+                    updateData.append("Online")
+                    updateData.append("green")
+                    self.addUpdate(updateData)
                 else:
-                    self.ui.online.updateOnline("Offline", "red")
+                    updateData.append("Offline")
+                    updateData.append("red")
+                    self.addUpdate(updateData)
             else:
-                self.ui.online.updateOnline("Error", "yellow")
+                updateData.append("Error")
+                updateData.append("yellow")
+                self.addUpdate(updateData)
         except:
             print "Error"
        
