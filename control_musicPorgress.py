@@ -64,7 +64,7 @@ class MusicProgress(Thread):
                         else:
                             updateData.append(progress)
                             updateData.append("intro.Horizontal.TProgressbar")
-                        updateData.append(self.convertTime(self.intro - timepassed))
+                        updateData.append(self.convertTime(self.timesong - timepassed))
                     self.controller.addUpdate(updateData)
             except:
                 print "Error music"
