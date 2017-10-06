@@ -48,21 +48,22 @@ class UI():
     def getUpdate(self):
         if(self.running):
             try:
-                UIupdate = self.updateQueue.get(block=False)
-                print UIupdate
-                if("clock" in UIupdate[0]):
-                    self.clock.updateClock(UIupdate[1])
-                elif("onair" in UIupdate[0]):
-                    print "onair"
-                elif("online" in UIupdate[0]):
-                    print "online"
-                elif("newSong"):
-                    print "newSonf"
-                elif("progress"):
-                    print "progress"
+                while True:
+                    UIupdate = self.updateQueue.get(block=False)
+                    if("clock" in UIupdate[0]):
+                        self.clock.updateClock(UIupdate[1])
+                    elif("onair" in UIupdate[0]):
+                        self.onair.updateOnair(UIupdate[1], UIupdate[2])
+                        print "onair"
+                    elif("online" in UIupdate[0]):
+                        print "online"
+                    elif("newSong"):
+                        print "newSonf"
+                    elif("progress"):
+                        print "progress"
             except Queue.Empty:
                 pass;
-            self.mainWindow.after(50,self.getUpdate)
+            self.mainWindow.after(300,self.getUpdate)
     '''
     Draw the main window
     '''

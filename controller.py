@@ -69,19 +69,6 @@ class Controller(Thread):
         self.musicprogress.stop()
         
     '''
-    Update the clock
-    '''
-    def updateClock(self, newTime):
-        #try:
-        update = []
-        update.append("clock")
-        update.append(newTime)
-        self.addUpdate(update)
-            #self.ui.clock.updateClock(newTime)
-        #except:
-        #    print "Error"
-            
-    '''
     Add an update to the updateQueue
     ''' 
     def addUpdate(self,update):
@@ -107,18 +94,23 @@ class Controller(Thread):
     '''     
     def updateOnair(self, newStatus):
         try:
+            updateData = ["onair"]
             if(newStatus != 2):
                 if(newStatus == 0):
-                    self.ui.onair.updateOnair("OffAir", "black")
-                    # self.ui.updateOnaire("OffAir","black")
+                    updateData.append("OffAir")
+                    updateData.append("black")
+                    self.addUpdate(updateData)
                 elif(newStatus == 1):
-                    self.ui.onair.updateOnair("OnAir", "red")
-                        # self.ui.updateOnaire("OnAir","red")
+                    updateData.append("OnAir")
+                    updateData.append("red")
+                    self.addUpdate(updateData)
                 else:
-                    self.ui.onair.updateOnair("Error", "yellow")
-                    # self.ui.updateOnaire("Error","yellow")
+                    updateData.append("Error")
+                    updateData.append("yellow")
+                    self.addUpdate(updateData)
             else:
-                self.ui.onair.updateOnair("Error\nNo connection", "yellow")
-                # self.ui.updateOnaire("Error\nNo connection","yellow")
+                updateData.append("Error\nNo connection")
+                updateData.append("yellow")
+                self.addUpdate(updateData)
         except:
             print "Error"

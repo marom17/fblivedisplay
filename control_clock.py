@@ -25,7 +25,10 @@ class Clock(Thread):
     def run(self):
         while self.running:
             #change the time display in the UI
-            self.controller.updateClock(self.update())
+            updateData = []
+            updateData.append("clock")
+            updateData.append(self.update())
+            self.controller.addUpdate(updateData)
             time.sleep(0.5)
             
     '''
