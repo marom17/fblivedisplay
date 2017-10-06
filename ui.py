@@ -13,6 +13,7 @@ from ui_onair import UI_Onair
 from ui_online import UI_Online
 from ui_music import UI_Music
 import config
+import sys
 
 class UI(Thread):
     '''
@@ -49,8 +50,21 @@ class UI(Thread):
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
         self.drawFrame()
-        self.mainWindow.mainloop()
+        try:
+            self.mainWindow.mainloop()
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
     
+    def drawMainWindow(self):
+        print "Start UI"
+        #self.drawFrame()
+        self.mainWindow.update_idletasks()
+        self.mainWindow.update()
+        self.drawFrame()
+        try:
+            self.mainWindow.mainloop()
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
     '''
     Monitor the key that are pressed
     '''

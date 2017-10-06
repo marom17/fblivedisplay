@@ -22,7 +22,6 @@ time.sleep(1)
 updateManager = Controller(userInterface)
 
 updateManager.start()
-
 userInterface.join()
 updateManager.stop()
 updateManager.join()
