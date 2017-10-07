@@ -11,7 +11,9 @@ import time
 
 from controller import Controller
 from ui import UI
-print "Start LiveDisplay"
+import sys
+print(sys.version)
+print("Start LiveDisplay")
 
 #create and start the usre interface
 userInterface = UI()
@@ -26,5 +28,7 @@ userInterface.join()
 updateManager.stop()
 updateManager.join()
 
-print "Stop LiveDisplay"
+
+
+print("Stop LiveDisplay")
 

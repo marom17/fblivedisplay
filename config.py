@@ -5,10 +5,10 @@ __Name__: config.py
 __Description__: Read the configuration file
 '''
 
-import ConfigParser
+import configparser
 
 #parse the config file
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read('livedisplay.conf')
 
 settingFullscreen = config.getint('settings','fullscreen')

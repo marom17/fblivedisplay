@@ -6,7 +6,7 @@ __Description__: User interface
 
 """
 
-from Tkinter import *
+from tkinter import *
 from threading import Thread
 from ui_clock import UI_Clock
 from ui_onair import UI_Onair
@@ -45,7 +45,7 @@ class UI(Thread):
     Draw the main window and all the subview
     '''
     def run(self):
-        print "Start UI"
+        print("Start UI")
         #self.drawFrame()
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
@@ -53,10 +53,10 @@ class UI(Thread):
         try:
             self.mainWindow.mainloop()
         except:
-            print "Unexpected error:", sys.exc_info()[0]
+            print("Unexpected error:", sys.exc_info()[0])
     
     def drawMainWindow(self):
-        print "Start UI"
+        print("Start UI")
         #self.drawFrame()
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
@@ -64,7 +64,7 @@ class UI(Thread):
         try:
             self.mainWindow.mainloop()
         except:
-            print "Unexpected error:", sys.exc_info()[0]
+            print("Unexpected error:", sys.exc_info()[0])
     '''
     Monitor the key that are pressed
     '''
@@ -79,7 +79,7 @@ class UI(Thread):
                 message = Label(toplevel,text="Coucou")
                 message.pack()
         except:
-            print "Error"
+            print("Error")
     
     '''
     Draw the window

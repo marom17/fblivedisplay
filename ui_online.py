@@ -6,7 +6,7 @@ __Description__: Online UI
 
 """
 
-from Tkinter import *
+from tkinter import *
 
 class UI_Online():
     '''
