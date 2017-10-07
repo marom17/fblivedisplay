@@ -40,7 +40,7 @@ class Controller(Thread):
     Start all the controllers
     '''
     def run(self):
-        print "Update Start"
+        print("Update Start")
         self.clock.start()
         self.online.start()
         self.onair.start()
@@ -60,7 +60,7 @@ class Controller(Thread):
     Stop all the controllers
     '''
     def stop(self):
-        print "Update stop"
+        print("Update stop")
         self.running = False
         self.clock.stop()
         self.online.stop()
@@ -75,7 +75,7 @@ class Controller(Thread):
         try:
             self.ui.clock.updateClock(newTime)
         except:
-            print "Error"
+            print("Error")
       
     '''
     Update the online status
@@ -90,7 +90,7 @@ class Controller(Thread):
             else:
                 self.ui.online.updateOnline("Error", "yellow")
         except:
-            print "Error"
+            print("Error")
        
     '''
     Update the Onair status
@@ -111,4 +111,4 @@ class Controller(Thread):
                 self.ui.onair.updateOnair("Error\nNo connection", "yellow")
                 # self.ui.updateOnaire("Error\nNo connection","yellow")
         except:
-            print "Error"
+            print("Error")

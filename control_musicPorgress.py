@@ -60,7 +60,7 @@ class MusicProgress(Thread):
                             self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
                         self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
             except:
-                print "Error music"
+                print("Error music")
             time.sleep(0.5)
      
     '''
@@ -84,7 +84,7 @@ class MusicProgress(Thread):
         try:
             self.musicUI.updateMusic([artist,title])
         except:
-            print "Error new Song"
+            print("Error new Song")
     
     '''
     Convert the time in secondes to a string xx:xx

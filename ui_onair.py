@@ -6,7 +6,7 @@ __Description__: Onair UI
 
 """
 
-from Tkinter import *
+from tkinter import *
 
 class UI_Onair():
     '''
