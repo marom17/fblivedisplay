@@ -6,10 +6,13 @@ __Description__: Music UI
 
 """
 
-from tkinter import *
-#import ttk
+from signals import eventSignals
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QFrame, QWidget, QProgressBar,\
+    QLayout, QSizePolicy
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
 
-class UI_Music():
+class UI_Music(QFrame):
     '''
     Class UI_Music
     functions:
@@ -18,81 +21,109 @@ class UI_Music():
         - updateTime(time)
         - updateBar(value,color)
     '''
-    def __init__(self,width,height,parent):
-        self.frameMusic = Frame(parent,bg="black",width=width,height=(2*height/3))
-        self.frameInfos = Frame(self.frameMusic,bg="black",width=width,height=(2*height/3))
-        self.title = StringVar()
-        self.title.set("")
-        self.artist = StringVar()
-        self.artist.set("")
-        self.startTime = StringVar()
-        self.startTime.set("")
-        self.progress = IntVar()
-        self.progress.set(0)
+    def __init__(self,parent):
         
-        #Configure Bar colors
-        self.barIntro = ttk.Style()
-        self.barIntro.theme_use('winnative')
-        self.barIntro.configure("intro.Horizontal.TProgressbar", foreground='blue', background='blue')
+        super().__init__()
         
-        self.barMusicBegin = ttk.Style()
-        self.barMusicBegin.theme_use('winnative')
-        self.barMusicBegin.configure("begin.Horizontal.TProgressbar", foreground='green', background='green')
+        #Clock UI design
+        self.setParent(parent)
+        self.resize(parent.width(),parent.height())
+        self.setStyleSheet("background-color:black;")
+        self.setMaximumSize(parent.width(),parent.height())
+        self.setAutoFillBackground(True)
         
-        self.barMusicNearlyEnd = ttk.Style()
-        self.barMusicNearlyEnd.theme_use('winnative')
-        self.barMusicNearlyEnd.configure("nend.Horizontal.TProgressbar", foreground='orange', background='orange')
+        self.drawMusic()
         
-        self.barMusicEnd = ttk.Style()
-        self.barMusicEnd.theme_use('winnative')
-        self.barMusicEnd.configure("end.Horizontal.TProgressbar", foreground='red', background='red')
+        eventSignals.newSong.connect(self.updateMusic)
+        eventSignals.updateTime.connect(self.updateTime)
+        eventSignals.updateBar.connect(self.updateBar)
+        self.show()
         
-        #configure object
-        self.progressBar = ttk.Progressbar(self.frameInfos,orient=HORIZONTAL,length=(width-100),mode='determinate',variable=self.progress)
-        self.champ_artist = Label(self.frameInfos,textvariable=self.artist,bg="black",fg="white",font=("Times New Roman",30),wraplength=(width-5),height=1,anchor="nw")
-        self.champ_title = Label(self.frameInfos,textvariable=self.title,bg="black",fg="white",font=("Times New Roman",30),wraplength=(width-5),height=1,anchor="nw")
-        self.champ_time = Label(self.frameInfos,textvariable=self.startTime,bg="black",fg="white",font=("Times New Roman",30))
-     
+             
     '''
     Draw the frame
     '''   
     def drawMusic(self):
         
-        #self.frameMusic.pack_propagate(False)
-        self.frameMusic.pack(expand=True)
+        self.musicFont = QFont("Times New Roman")
+        self.musicFont.setPixelSize(self.height()/10)
+
+        #artist
+        self.artist = QLabel("Artist")
+        self.artist.setStyleSheet("color:white;background-color:green;")
+        self.artist.setFont(self.musicFont)
+        self.artist.setAlignment(Qt.AlignCenter)
+        self.artist.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
         
-        self.frameInfos.place(relx=.5, rely=.5, anchor="c")
-        self.frameInfos.pack()
-        #.champ_title.place(relx=.5, rely=.5, anchor="c")
-        self.champ_artist.pack()
-        self.champ_title.pack()
-        #self.progressBar.place(relx=.5, rely=.5, anchor="c")
-        self.champ_time.pack()
+        #title
+        self.title = QLabel("Title")
+        self.title.setStyleSheet("color:white;background-color:green;")
+        self.title.setFont(self.musicFont)
+        self.title.setAlignment(Qt.AlignCenter)
+        self.title.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
+        #time
+        self.time = QLabel("01:12")
+        self.time.setStyleSheet("color:white;background-color:green;")
+        self.time.setFont(self.musicFont)
+        self.time.setAlignment(Qt.AlignCenter)
+        self.time.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
         
-        self.progressBar["style"]="begin.Horizontal.TProgressbar"
-        #self.progressBar["value"]=50
-        self.progressBar.pack()
-       
+                
+        #bar
+        self.progressbar = QProgressBar()
+        self.progressbar.setTextVisible(False)
+        self.progressbar.setAlignment(Qt.AlignCenter)
+        self.progressbar.setMaximumWidth(self.width()-10)
+        self.progressbar.setValue(0)
+        self.progressbar.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
+        
+        #layout
+        self.musicLayout = QVBoxLayout()
+        self.musicLayout.setAlignment(Qt.AlignVCenter)
+        self.musicLayout.setAlignment(self.artist,Qt.AlignCenter)
+        self.musicLayout.setAlignment(self.title,Qt.AlignCenter)
+        self.musicLayout.setAlignment(self.time,Qt.AlignCenter)
+        #self.musicLayout.setAlignment(self.progressbar,Qt.AlignCenter)
+        self.musicLayout.setSpacing(10)
+        self.musicLayout.setContentsMargins(0, 0, 0, 0)
+        #self.musicLayout.setSizeConstraint(QLayout.SetFixedSize)
+        
+                
+        self.musicLayout.addWidget(self.artist)
+        self.musicLayout.addWidget(self.title)
+        self.musicLayout.addWidget(self.time)
+        self.musicLayout.addWidget(self.progressbar)
+        self.artist.show()
+        self.title.show()
+        self.time.show()
+        self.progressbar.show()
+        
+        self.setLayout(self.musicLayout)
+               
     '''
     Update the music name
     ''' 
     def updateMusic(self,data):
         #string = data[0].upper()+"/"+data[1]
-        self.artist.set(data[0].upper())
-        self.title.set(data[1])
+        self.artist.setText(data[0].upper())
+        self.title.setText(data[1])
+        '''self.artist.set(data[0].upper())
+        self.title.set(data[1])'''
         
     '''
     Update the time remaning
     '''
     def updateTime(self,time):
-        self.startTime.set(time)
+        self.time.setText(time)
+        'self.startTime.set(time)'
        
     '''
     Update the progress bar
     ''' 
     def updateBar(self,value,color):
-        try:
+        '''try:
             self.progress.set(value)
             self.progressBar["style"] = color
         except:
-            print("Error")
+            print("Error")'''
+        self.progressbar.setValue(value)

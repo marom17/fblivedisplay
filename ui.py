@@ -50,8 +50,8 @@ class UI(QWidget):
         self.frameTop = QFrame(self)
         self.frameTop.resize(self.width(),self.width()/3)
         self.frameTop.move(0,0)
-        self.frameTop.setStyleSheet("background-color:white;")
-        
+        self.frameTop.setStyleSheet("background-color:black;")
+        self.frameTop.setMinimumSize(self.width(),self.width()/3)
         
         #set top layout
         self.topLayout = QHBoxLayout()
@@ -75,5 +75,13 @@ class UI(QWidget):
     Draw the bottom frame
     '''
     def drawBottom(self):
-        return
+        self.frameBottom = QFrame(self)
+        self.frameBottom.resize(self.width(),2*self.width()/3)
+        self.frameBottom.move(0,self.width()/3)
+        self.frameBottom.setStyleSheet("background-color:black;")
+        self.frameBottom.setMinimumSize(self.width(),self.width()/3)
+        
+        self.uimusic = UI_Music(self.frameBottom)
+        
+        self.frameBottom.show()
         

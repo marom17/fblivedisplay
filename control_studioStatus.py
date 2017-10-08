@@ -46,7 +46,7 @@ class OnlineStatus(Thread):
         req = urllib.request.Request(url)
         
         try:
-            r = urllib.request.urlopen(req, timeout=1)
+            r = urllib.request.urlopen(req, timeout=1, context=context)
             data = json.loads(r.read().decode())
             return data
         except:
