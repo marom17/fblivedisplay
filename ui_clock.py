@@ -25,11 +25,19 @@ class UI_Clock(QFrame):
         #Clock UI design
         self.setParent(parent)
         self.resize(parent.width()/3,parent.height())
-        print(self.width(),self.height(),parent.width(),parent.height())
         self.setStyleSheet("background-color:black;")
         self.setMaximumSize(parent.width()/3,parent.height())
         self.setAutoFillBackground(True)
         
+        self.drawClock()
+        
+        eventSignals.clock.connect(self.updateClock)
+        self.show()
+        
+    '''
+    Draw the frame
+    '''
+    def drawClock(self):
         #Clock text
         self.topText = QLabel(self)
         self.bottomText = QLabel(self)
@@ -66,9 +74,6 @@ class UI_Clock(QFrame):
         self.topText.show()
         self.bottomText.show()
         
-        eventSignals.clock.connect(self.updateClock)
-        self.show()
-    
     '''
     Update the clock
     '''

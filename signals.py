@@ -11,6 +11,7 @@ class Signals(QObject):
     
     clock = pyqtSignal([list])
     onair = pyqtSignal(str,str)
+    online = pyqtSignal(str,str)
     
     
     

@@ -32,7 +32,7 @@ class Controller(Thread):
         self.running = True
         #initialize all controllers
         self.clock = Clock(self)
-        #self.online = OnlineStatus(self)
+        self.online = OnlineStatus(self)
         self.onair = AxiaOnair(self)
         #self.musicprogress = MusicProgress(self.ui.music)
         #self.newSong = NewSong(self.musicprogress)
@@ -43,7 +43,7 @@ class Controller(Thread):
     def run(self):
         print("Update Start")
         self.clock.start()
-        #self.online.start()
+        self.online.start()
         self.onair.start()
         #self.musicprogress.start()
         #self.newSong.start()
@@ -52,7 +52,7 @@ class Controller(Thread):
             time.sleep(0.5)
         
         self.clock.join()
-        #self.online.join()
+        self.online.join()
         self.onair.join()
         #self.newSong.join()
         #self.musicprogress.join()
@@ -64,7 +64,7 @@ class Controller(Thread):
         print("Update stop")
         self.running = False
         self.clock.stop()
-        #self.online.stop()
+        self.online.stop()
         self.onair.stop()
         #self.newSong.stop()
         #self.musicprogress.stop()
@@ -85,11 +85,14 @@ class Controller(Thread):
         try:
             if(newStatus):
                 if(newStatus[1]):
-                    self.ui.online.updateOnline("Online", "green")
+                    eventSignals.online.emit("Online", "green")
+                    #self.ui.online.updateOnline("Online", "green")
                 else:
-                    self.ui.online.updateOnline("Offline", "red")
+                    eventSignals.online.emit("Offline", "red")
+                    #self.ui.online.updateOnline("Offline", "red")
             else:
-                self.ui.online.updateOnline("Error", "yellow")
+                eventSignals.online.emit("Error", "yellow")
+                #self.ui.online.updateOnline("Error", "yellow")
         except:
             print("Error")
        

@@ -61,10 +61,12 @@ class UI(QWidget):
         #init top UI
         self.uiclock = UI_Clock(self.frameTop)
         self.uionair = UI_Onair(self.frameTop)
+        self.uionline = UI_Online(self.frameTop)
         
         #assign top UI to layout
         self.topLayout.addWidget(self.uiclock)
         self.topLayout.addWidget(self.uionair)
+        self.topLayout.addWidget(self.uionline)
         
         self.frameTop.setLayout(self.topLayout)
         self.frameTop.show()
