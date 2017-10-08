@@ -39,21 +39,16 @@ class OnlineStatus(Thread):
     Check on the commutation the status of the studio
     '''       
     def checkStatus(self):
-        host = config.commuthost
-        port = config.commutport
-        url = config.commuturl+config.commutchan
+        
         #create an HTTPS connection with the commutation
-        req = urllib.request.Request()
-        #c = http.client.HTTPSConnection(host,port,context=ssl._create_unverified_context(),timeout=1)
+        url = config.commuturl+config.commutchan
+        context = ssl._create_unverified_context()
+        req = urllib.request.Request(url)
+        
         try:
-            #c.request("GET", url)
-            #response = c.getresponse()
-            #data = response.read()
-            #data = json.loads(data)
-            #c.close()
-            #return the data send by the commutation
-            return False
-            #return data
+            r = urllib.request.urlopen(req, timeout=1)
+            data = json.loads(r.read().decode())
+            return data
         except:
             return False
     

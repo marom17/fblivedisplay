@@ -28,6 +28,17 @@ class UI_Onair(QFrame):
         self.setMaximumSize(parent.width()/3,parent.height())
         self.setAutoFillBackground(True)
         
+        self.drawOnair()
+        
+        self.show()
+        
+        eventSignals.onair.connect(self.updateOnair)
+        
+    '''
+    Draw the frame
+    '''
+    def drawOnair(self):
+        
         self.text = QLabel("Get Info")
         self.text.setAlignment(Qt.AlignCenter)
         self.textFont = QFont("Times New Roman")
@@ -42,21 +53,7 @@ class UI_Onair(QFrame):
         
         self.text.show()
         self.setLayout(self.textLayout)
-        self.show()
         
-        eventSignals.onair.connect(self.updateOnair)
-        
-    '''
-    Draw the frame
-    '''
-    def drawOnair(self):
-        self.frameOnair.pack_propagate(False)
-        self.frameOnair.grid(row=0,column=2)
-        #self.frameOnair.place(rely=0)
-        self.frameOnair.pack(side="left",expand=True,fill='both')
-        self.champ_onair.place(relx=.5, rely=.5, anchor="c")
-        self.champ_onair.pack(expand=True)
-     
     '''
     Update the status
     '''   

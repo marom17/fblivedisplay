@@ -14,8 +14,6 @@ config.read('livedisplay.conf')
 settingFullscreen = config.getint('settings','fullscreen')
 settingScreen = config.get('settings','screen')
      
-commuthost = config.get('commut','host')
-commutport = config.getint('commut','port')   
 commuturl = config.get('commut', "url")
 commutchan = config.get('commut', "chan")
        

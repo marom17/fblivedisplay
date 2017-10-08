@@ -6,37 +6,56 @@ __Description__: Online UI
 
 """
 
-from tkinter import *
+from signals import eventSignals
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QFrame, QWidget
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
 
-class UI_Online():
+class UI_Online(QFrame):
     '''
     Class UI_Online
     functions:
         - drawOnline()
         - updateOnline(newStatus,bg)
     '''
-    def __init__(self,height,parent):
-        self.status = StringVar()
-        self.status.set("Get Info")
-        self.frameOnline = Frame(parent,bg="orange",height=height)
-        self.champ_online = Label(self.frameOnline, textvariable = self.status,bg="orange",fg="black",font=("Times New Roman",30))
+    def __init__(self,parent):
+        super().__init__()
+        
+        self.setParent(parent)
+        self.resize(parent.width()/3,parent.height())
+        self.setStyleSheet("background-color:orange;")
+        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setAutoFillBackground(True)
+        
+        self.drawOnline()
+        
+        eventSignals.online.connect(self.updateOnline)
+        self.show()
     
     '''
     Draw the frame
     '''           
     def drawOnline(self):
         
-        self.frameOnline.pack_propagate(False)
-        self.frameOnline.grid(row=0,column=3)
-        #self.frameOnline.place(rely=0)
-        self.frameOnline.pack(side="left",expand=True,fill='both')
-        self.champ_online.place(relx=.5, rely=.5, anchor="c")
-        self.champ_online.pack(expand=True)
+        self.text = QLabel("Get Info")
+        self.text.setAlignment(Qt.AlignCenter)
+        self.textFont = QFont("Times New Roman")
+        self.textFont.setPixelSize(self.height()/3-10)
+        self.text.setFont(self.textFont)
+        
+        #layout
+        self.textLayout = QVBoxLayout()
+        self.textLayout.setAlignment(Qt.AlignCenter)
+        
+        self.textLayout.addWidget(self.text)
+        
+        self.text.show()
+        self.setLayout(self.textLayout)
       
     '''
     Update the status
     '''  
     def updateOnline(self,newStatus,bg):
-            self.status.set(newStatus)
-            self.champ_online["bg"]=bg
-            self.frameOnline["bg"]=bg
+        background = "background-color:"+bg+";"
+        self.text.setText(newStatus)
+        self.setStyleSheet(background)
