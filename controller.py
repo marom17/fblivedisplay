@@ -31,10 +31,10 @@ class Controller(Thread):
         self.running = True
         #initialize all controllers
         self.clock = Clock(self)
-        self.online = OnlineStatus(self)
-        self.onair = AxiaOnair(self)
-        self.musicprogress = MusicProgress(self.ui.music)
-        self.newSong = NewSong(self.musicprogress)
+        #self.online = OnlineStatus(self)
+        #self.onair = AxiaOnair(self)
+        #self.musicprogress = MusicProgress(self.ui.music)
+        #self.newSong = NewSong(self.musicprogress)
         
     '''
     Start all the controllers
@@ -42,19 +42,19 @@ class Controller(Thread):
     def run(self):
         print("Update Start")
         self.clock.start()
-        self.online.start()
-        self.onair.start()
-        self.musicprogress.start()
-        self.newSong.start()
+        #self.online.start()
+        #self.onair.start()
+        #self.musicprogress.start()
+        #self.newSong.start()
         
         while(self.running):    
             time.sleep(0.5)
         
         self.clock.join()
-        self.online.join()
-        self.onair.join()
-        self.newSong.join()
-        self.musicprogress.join()
+        #self.online.join()
+        #self.onair.join()
+        #self.newSong.join()
+        #self.musicprogress.join()
             
     '''
     Stop all the controllers
@@ -63,10 +63,10 @@ class Controller(Thread):
         print("Update stop")
         self.running = False
         self.clock.stop()
-        self.online.stop()
-        self.onair.stop()
-        self.newSong.stop()
-        self.musicprogress.stop()
+        #self.online.stop()
+        #self.onair.stop()
+        #self.newSong.stop()
+        #self.musicprogress.stop()
         
     '''
     Update the clock

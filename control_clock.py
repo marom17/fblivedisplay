@@ -8,6 +8,7 @@ __Description__: Give the current time
 
 import time
 from threading import Thread
+from signals import eventSignals
 
 class Clock(Thread):
     '''
@@ -25,7 +26,8 @@ class Clock(Thread):
     def run(self):
         while self.running:
             #change the time display in the UI
-            self.controller.updateClock(self.update())
+            eventSignals.clock.emit(self.update())
+            #self.controller.updateClock(self.update())
             time.sleep(0.5)
             
     '''

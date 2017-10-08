@@ -24,10 +24,10 @@ userInterface = UI()
 #userInterface.start()
 
 time.sleep(1)
-#start the controllers
-#updateManager = Controller(userInterface)
+print("start the controllers")
+updateManager = Controller(userInterface)
 
-#updateManager.start()
+updateManager.start()
 #userInterface.join()
 #updateManager.stop()
 #updateManager.join()
