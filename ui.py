@@ -6,16 +6,32 @@ __Description__: User interface
 
 """
 
-from tkinter import *
-from threading import Thread
+#from tkinter import *
+#from threading import Thread
 from ui_clock import UI_Clock
 from ui_onair import UI_Onair
 from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QIcon
 
-class UI(Thread):
+class UI(QWidget):
+    
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("FB Live Display")
+        self.setWindowIcon(QIcon('fbld.ico'))
+        if(not config.settingFullscreen):
+            size = config.settingScreen.split('x')
+            self.resize(int(size[0]),int(size[1]))
+            self.setFixedSize(int(size[0]),int(size[1]))
+            self.show()
+        else:
+            self.showFullScreen()
+    
+    
     '''
     Class UI
     functions:
@@ -25,8 +41,8 @@ class UI(Thread):
         - drawTopFrame()
         - drawottomFrame()
     '''
-    def __init__(self):
-        Thread.__init__(self)
+    '''def __init__(self):
+        #Thread.__init__(self)
         self.mainWindow = Tk()
         #check if we active fullscreen
         if(not config.settingFullscreen):
@@ -39,7 +55,7 @@ class UI(Thread):
         self.mainWindow.resizable(False, False) 
         
         
-        self.mainWindow.bind("<Key>",self.keyPressed)     
+        self.mainWindow.bind("<Key>",self.keyPressed)  '''   
         
     '''
     Draw the main window and all the subview
