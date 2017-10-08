@@ -5,19 +5,17 @@ __Name__: ui_clock.py
 __Description__: Clock UI
 
 """
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QFrame, QWidget
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from signals import eventSignals
 
-#from tkinter import *
 
-class UI_Clock(QWidget):
+class UI_Clock(QFrame):
     
     '''
     Class UI_Clock
     function:
-        - drawClock()
         - updateClock(newTime)
     '''
     
@@ -26,9 +24,11 @@ class UI_Clock(QWidget):
         
         #Clock UI design
         self.setParent(parent)
-        self.resize(parent.height(),parent.width()/3)
+        self.resize(parent.width()/3,parent.height())
+        print(self.width(),self.height(),parent.width(),parent.height())
         self.setStyleSheet("background-color:black;")
-        self.setMaximumSize(parent.height(),parent.width()/3)
+        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setAutoFillBackground(True)
         
         #Clock text
         self.topText = QLabel(self)
@@ -57,8 +57,8 @@ class UI_Clock(QWidget):
         self.topText.setAlignment(Qt.AlignCenter)
         self.bottomText.setAlignment(Qt.AlignCenter)
         
-        self.topText.setStyleSheet("color:white;")
-        self.bottomText.setStyleSheet("color:white;")
+        self.topText.setStyleSheet("color:red;")
+        self.bottomText.setStyleSheet("color:red;")
         
         self.topText.setText("12:30")
         self.bottomText.setText("25")

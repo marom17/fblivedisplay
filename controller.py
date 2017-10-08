@@ -8,6 +8,7 @@ __Description__: Update all systems
 
 from threading import Thread
 import time
+from signals import eventSignals
 from control_clock import Clock
 from control_studioStatus import OnlineStatus
 from control_axiaOnair import AxiaOnair
@@ -32,7 +33,7 @@ class Controller(Thread):
         #initialize all controllers
         self.clock = Clock(self)
         #self.online = OnlineStatus(self)
-        #self.onair = AxiaOnair(self)
+        self.onair = AxiaOnair(self)
         #self.musicprogress = MusicProgress(self.ui.music)
         #self.newSong = NewSong(self.musicprogress)
         
@@ -43,7 +44,7 @@ class Controller(Thread):
         print("Update Start")
         self.clock.start()
         #self.online.start()
-        #self.onair.start()
+        self.onair.start()
         #self.musicprogress.start()
         #self.newSong.start()
         
@@ -52,7 +53,7 @@ class Controller(Thread):
         
         self.clock.join()
         #self.online.join()
-        #self.onair.join()
+        self.onair.join()
         #self.newSong.join()
         #self.musicprogress.join()
             
@@ -64,7 +65,7 @@ class Controller(Thread):
         self.running = False
         self.clock.stop()
         #self.online.stop()
-        #self.onair.stop()
+        self.onair.stop()
         #self.newSong.stop()
         #self.musicprogress.stop()
         
@@ -99,16 +100,20 @@ class Controller(Thread):
         try:
             if(newStatus != 2):
                 if(newStatus == 0):
-                    self.ui.onair.updateOnair("OffAir", "black")
+                    eventSignals.onair.emit("OffAir", "black")
+                    #self.ui.onair.updateOnair("OffAir", "black")
                     # self.ui.updateOnaire("OffAir","black")
                 elif(newStatus == 1):
-                    self.ui.onair.updateOnair("OnAir", "red")
+                    eventSignals.onair.emit("OnAir", "red")
+                    #self.ui.onair.updateOnair("OnAir", "red")
                         # self.ui.updateOnaire("OnAir","red")
                 else:
-                    self.ui.onair.updateOnair("Error", "yellow")
+                    eventSignals.onair.emit("Error", "yellow")
+                    #self.ui.onair.updateOnair("Error", "yellow")
                     # self.ui.updateOnaire("Error","yellow")
             else:
-                self.ui.onair.updateOnair("Error\nNo connection", "yellow")
+                eventSignals.onair.emit("Error\nNo connection", "yellow")
+                #self.ui.onair.updateOnair("Error\nNo connection", "yellow")
                 # self.ui.updateOnaire("Error\nNo connection","yellow")
         except:
             print("Error")

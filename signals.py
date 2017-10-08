@@ -10,6 +10,8 @@ from PyQt5.QtCore import QObject, pyqtSignal
 class Signals(QObject):
     
     clock = pyqtSignal([list])
+    onair = pyqtSignal(str,str)
+    
     
     
 eventSignals = Signals()

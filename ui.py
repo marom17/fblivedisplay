@@ -5,9 +5,6 @@ __Name__: ui.py
 __Description__: User interface
 
 """
-
-#from tkinter import *
-#from threading import Thread
 from ui_clock import UI_Clock
 from ui_onair import UI_Onair
 from ui_online import UI_Online
@@ -63,9 +60,11 @@ class UI(QWidget):
         
         #init top UI
         self.uiclock = UI_Clock(self.frameTop)
+        self.uionair = UI_Onair(self.frameTop)
         
         #assign top UI to layout
         self.topLayout.addWidget(self.uiclock)
+        self.topLayout.addWidget(self.uionair)
         
         self.frameTop.setLayout(self.topLayout)
         self.frameTop.show()
