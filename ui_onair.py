@@ -6,20 +6,45 @@ __Description__: Onair UI
 
 """
 
-from tkinter import *
+from signals import eventSignals
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QFrame, QWidget
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
+#from tkinter import *
 
-class UI_Onair():
+class UI_Onair(QFrame):
     '''
     Class UI_Onair
     functions:
         - drawOnair()
         - updateOnair(newStatus,bg)
     '''
-    def __init__(self,heigth,parent):
-        self.status = StringVar()
-        self.status.set("Get Info")
-        self.frameOnair = Frame(parent,bg="orange",height=heigth)
-        self.champ_onair = Label(self.frameOnair, textvariable=self.status,bg="orange",fg="black",font=("Times New Roman",30))
+    def __init__(self,parent):
+        super().__init__()
+        
+        self.setParent(parent)
+        self.resize(parent.width(),parent.width()/3)
+        self.setStyleSheet("background-color:orange;")
+        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setAutoFillBackground(True)
+        
+        self.text = QLabel("Get Info")
+        self.text.setAlignment(Qt.AlignCenter)
+        self.textFont = QFont("Times New Roman")
+        self.textFont.setPixelSize(self.height()/3-10)
+        self.text.setFont(self.textFont)
+        
+        #layout
+        self.textLayout = QVBoxLayout()
+        self.textLayout.setAlignment(Qt.AlignCenter)
+        
+        self.textLayout.addWidget(self.text)
+        
+        self.text.show()
+        self.setLayout(self.textLayout)
+        self.show()
+        
+        eventSignals.onair.connect(self.updateOnair)
         
     '''
     Draw the frame
@@ -36,6 +61,7 @@ class UI_Onair():
     Update the status
     '''   
     def updateOnair(self,newStatus,bg):
-        self.status.set(newStatus)
-        self.champ_onair["bg"]=bg
-        self.frameOnair["bg"]=bg
+        background = "background-color:"+bg+";"
+        self.text.setText(newStatus)
+        self.setStyleSheet(background)
+        

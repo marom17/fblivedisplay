@@ -28,11 +28,11 @@ print("start the controllers")
 updateManager = Controller(userInterface)
 
 updateManager.start()
+app.exec_()
 #userInterface.join()
-#updateManager.stop()
-#updateManager.join()
+updateManager.stop()
+updateManager.join()
 
 
-sys.exit(app.exec_())
 print("Stop LiveDisplay")
 
