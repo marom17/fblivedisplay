@@ -17,8 +17,15 @@ base = None
 includefiles = ['newSong.xml','livedisplay.conf']
 
 setup(  name = "FB Live Display",
-        version = "0.5.2",
+        version = "0.6.0",
         description = "Display information about studio status and music",
-        author = "Romain Maillard",
+        copyright="(c) Romain Maillard 2017",
+        #author = "Romain Maillard",
         options = {"build_exe": {'include_files':includefiles}},
-        executables = [Executable("startLiveDisplay.py", base="Win32GUI",targetName="LiveDisplay.exe",icon="")])
+        executables = [Executable(
+        "startLiveDisplay.py", 
+        base="Win32GUI",
+        copyright="(c) Romain Maillard 2017",
+        icon="fbld.ico",
+        targetName="LiveDisplay.exe"
+        )])

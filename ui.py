@@ -14,8 +14,9 @@ from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QFrame
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt
 
 class UI(QWidget):
     
@@ -27,107 +28,51 @@ class UI(QWidget):
             size = config.settingScreen.split('x')
             self.resize(int(size[0]),int(size[1]))
             self.setFixedSize(int(size[0]),int(size[1]))
+            
+        self.drawTop()
+        self.drawBottom()
+        
+        if(not config.settingFullscreen):
             self.show()
         else:
             self.showFullScreen()
     
-    
     '''
-    Class UI
-    functions:
-        - run()
-        - keyPressed(event)
-        - drawFrame()
-        - drawTopFrame()
-        - drawottomFrame()
+    Exit the program with escape key
     '''
-    '''def __init__(self):
-        #Thread.__init__(self)
-        self.mainWindow = Tk()
-        #check if we active fullscreen
-        if(not config.settingFullscreen):
-            self.mainWindow.geometry(config.settingScreen)
-        else:
-            self.mainWindow.attributes("-fullscreen", True) 
-        self.mainWindow.configure(background='black')
-        self.mainWindow.title("FB Live Display")
-        #desactivate the resize
-        self.mainWindow.resizable(False, False) 
+    def keyPressEvent(self, event):
         
-        
-        self.mainWindow.bind("<Key>",self.keyPressed)  '''   
+        if(event.key() == Qt.Key_Escape):
+            self.close()
         
     '''
-    Draw the main window and all the subview
-    '''
-    def run(self):
-        print("Start UI")
-        #self.drawFrame()
-        self.mainWindow.update_idletasks()
-        self.mainWindow.update()
-        self.drawFrame()
-        try:
-            self.mainWindow.mainloop()
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
-    
-    def drawMainWindow(self):
-        print("Start UI")
-        #self.drawFrame()
-        self.mainWindow.update_idletasks()
-        self.mainWindow.update()
-        self.drawFrame()
-        try:
-            self.mainWindow.mainloop()
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
-    '''
-    Monitor the key that are pressed
-    '''
-    def keyPressed(self,event):
-        try:
-            #escape quit the application
-            if (ord(event.char)==27):
-                self.mainWindow.quit()
-            #i display on message
-            elif (ord(event.char) == 105):
-                toplevel = Toplevel()
-                message = Label(toplevel,text="Coucou")
-                message.pack()
-        except:
-            print("Error")
-    
-    '''
-    Draw the window
-    '''
-    def drawFrame(self):
-        self.drawTopFrame()
-        self.drawBottomFrame()
+    Draw the top frame
+    '''    
+    def drawTop(self):
+        #draw top frame
+        self.frameTop = QFrame(self)
+        self.frameTop.resize(self.width(),self.width()/3)
+        self.frameTop.move(0,0)
+        self.frameTop.setStyleSheet("background-color:white;")
+        
+        
+        #set top layout
+        self.topLayout = QHBoxLayout()
+        self.topLayout.setSpacing(0)
+        self.topLayout.setContentsMargins(0, 0, 0, 0)
+        
+        #init top UI
+        self.uiclock = UI_Clock(self.frameTop)
+        
+        #assign top UI to layout
+        self.topLayout.addWidget(self.uiclock)
+        
+        self.frameTop.setLayout(self.topLayout)
+        self.frameTop.show()
         
     '''
-    Draw the top part of the window
+    Draw the bottom frame
     '''
-    def drawTopFrame(self):
-        self.frameTop = Frame(self.mainWindow,bg="black")
-        self.frameTop.pack(side="top",fill='both')
-        
-        self.clock = UI_Clock(self.mainWindow.winfo_height()/3,self.frameTop)
-        self.clock.drawClock()
-        
-        self.onair = UI_Onair(self.mainWindow.winfo_height()/3,self.frameTop)
-        self.onair.drawOnair()
-        
-        self.online = UI_Online(self.mainWindow.winfo_height()/3,self.frameTop)
-        self.online.drawOnline()
-        
-    '''
-    Draw the bottom part of the window
-    '''   
-    def drawBottomFrame(self):        
-        self.frameBottom = Frame(self.mainWindow,bg="black")
-        self.frameBottom.pack(side="top",fill='both',expand=True)
-        
-        self.music = UI_Music(self.mainWindow.winfo_width(),self.mainWindow.winfo_height(),self.frameBottom)
-        self.music.drawMusic()
-        
+    def drawBottom(self):
+        return
         

@@ -5,10 +5,15 @@ __Name__: ui_clock.py
 __Description__: Clock UI
 
 """
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
+from signals import eventSignals
 
-from tkinter import *
+#from tkinter import *
 
-class UI_Clock():
+class UI_Clock(QWidget):
+    
     '''
     Class UI_Clock
     function:
@@ -16,31 +21,57 @@ class UI_Clock():
         - updateClock(newTime)
     '''
     
-    def __init__(self,height,parent):
-        self.timeTop = StringVar()
-        self.timeBottom = StringVar()
-        self.timeTop.set("")
-        self.timeBottom.set("")
-        self.frameClock = Frame(parent,bg="black",height=height)
-        self.champ_clockTop = Label(self.frameClock, textvariable = self.timeTop,bg="black",fg="red",font=("QuiverItal",50))
-        self.champ_clockBottom = Label(self.frameClock, textvariable = self.timeBottom,bg="black",fg="red",font=("QuiverItal",45),justify="center")
-        #self.champ_clockTop = Label(self.frameClock, textvariable = self.timeTop,bg="black",fg="red",font=("Digital-7",50))
-        #self.champ_clockBottom = Label(self.frameClock, textvariable = self.timeBottom,bg="black",fg="red",font=("Digital-7",45),justify="center")  
+    def __init__(self,parent):
+        super().__init__()
         
-    '''
-    Draw the initial clock
-    '''
-    def drawClock(self):
-        self.frameClock.pack_propagate(False)
-        self.frameClock.grid(row=0,column=1)
-        self.frameClock.pack(side="left",expand=True,fill='both')    
-        self.champ_clockTop.place(relx=.5, rely=.5, anchor="c")
-        self.champ_clockTop.pack(expand=True)
-        self.champ_clockBottom.pack()
+        #Clock UI design
+        self.setParent(parent)
+        self.resize(parent.height(),parent.width()/3)
+        self.setStyleSheet("background-color:black;")
+        self.setMaximumSize(parent.height(),parent.width()/3)
+        
+        #Clock text
+        self.topText = QLabel(self)
+        self.bottomText = QLabel(self)
+        
+        self.clockFont = QFont("QuiverItal")
+        self.clockFont.setPixelSize(self.height()/3)
+        
+        self.topText.setMaximumSize(self.height(), self.width())
+        self.bottomText.setMaximumSize(self.height(), self.width())
+        
+        #set font
+        self.topText.setFont(self.clockFont)
+        self.bottomText.setFont(self.clockFont)
+        
+        #set layout        
+        self.textLayout = QVBoxLayout()
+        self.textLayout.setAlignment(Qt.AlignCenter)
+        self.textLayout.setSpacing(10)
+        self.textLayout.setContentsMargins(0, 0, 0, 0)
+        self.textLayout.addWidget(self.topText)
+        self.textLayout.addWidget(self.bottomText)
+        self.setLayout(self.textLayout)
+        
+        #set alignement
+        self.topText.setAlignment(Qt.AlignCenter)
+        self.bottomText.setAlignment(Qt.AlignCenter)
+        
+        self.topText.setStyleSheet("color:white;")
+        self.bottomText.setStyleSheet("color:white;")
+        
+        self.topText.setText("12:30")
+        self.bottomText.setText("25")
+        
+        self.topText.show()
+        self.bottomText.show()
+        
+        eventSignals.clock.connect(self.updateClock)
+        self.show()
     
     '''
     Update the clock
     '''
     def updateClock(self,newTime):
-        self.timeTop.set(newTime[0])
-        self.timeBottom.set(newTime[1])
+        self.topText.setText(newTime[0])
+        self.bottomText.setText(newTime[1])
