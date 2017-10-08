@@ -12,6 +12,9 @@ class Signals(QObject):
     clock = pyqtSignal([list])
     onair = pyqtSignal(str,str)
     online = pyqtSignal(str,str)
+    newSong = pyqtSignal([list])
+    updateTime = pyqtSignal(str)
+    updateBar = pyqtSignal(int,str)
     
     
     

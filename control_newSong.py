@@ -22,6 +22,7 @@ class NewSongHandler(FileSystemEventHandler):
     def on_modified(self, event):
         #check if the modification is made on the xml file
         if(config.winmediafile in event.src_path):
+            time.sleep(0.2)
             self.songcontrol.readXml()
 
 class NewSong(Thread):
@@ -67,7 +68,9 @@ class NewSong(Thread):
     ''' 
     def readXml(self):
         try:
-            tree = ET.parse(config.winmediafile)
+            #print(config.winmediafile)
+            #tree = ET.parse(config.winmediafile)
+            tree = ET.parse('newSong.xml')
             title = tree.findtext("title")
             artist = tree.findtext("artist")
             intro = int(tree.findtext("intro"))

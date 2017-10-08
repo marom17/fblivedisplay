@@ -8,6 +8,7 @@ __Description__: Get the actual music, display it and control startTime and bar
 
 import time
 from threading import Thread
+from signals import eventSignals
 
 class MusicProgress(Thread):
     '''
@@ -18,11 +19,10 @@ class MusicProgress(Thread):
         -newSong(intro,duration,title,artist)
         - converTime(seconds)
     '''
-    def __init__(self,musicUI):
+    def __init__(self):
         Thread.__init__(self)
         
         self.running = True
-        self.musicUI = musicUI
         self.intro = 0
         self.timesong = 0
         self.startTime = 0
@@ -44,21 +44,28 @@ class MusicProgress(Thread):
                     if(self.onIntro):
                         if(timepassed >= self.intro):
                             self.onIntro = False
-                        progress = int((timepassed/float(self.intro))*100) 
-                        self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        self.musicUI.updateTime(self.convertTime(self.intro - timepassed))
+                        progress = int((timepassed/float(self.intro))*100)
+                        eventSignals.updateBar.emit(progress,"intro")
+                        eventSignals.updateTime.emit(self.convertTime(self.intro - timepassed))
+                        #self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
+                        #self.musicUI.updateTime(self.convertTime(self.intro - timepassed))
                     else:
                         
                         #change the color of the progressbar on the progress of the song
                         if(progress<70):
-                            self.musicUI.updateBar(progress,"begin.Horizontal.TProgressbar")
+                            eventSignals.updateBar.emit(progress,"begin")
+                            #self.musicUI.updateBar(progress,"begin.Horizontal.TProgressbar")
                         elif(progress<85):
-                            self.musicUI.updateBar(progress,"nend.Horizontal.TProgressbar")
+                            eventSignals.updateBar.emit(progress,"nend")
+                            #self.musicUI.updateBar(progress,"nend.Horizontal.TProgressbar")
                         elif(progress<100):
-                            self.musicUI.updateBar(progress,"end.Horizontal.TProgressbar")
+                            eventSignals.updateBar.emit(progress,"end")
+                            #self.musicUI.updateBar(progress,"end.Horizontal.TProgressbar")
                         else:
-                            self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
+                            eventSignals.updateBar.emit(progress,"end")
+                            #self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
+                        eventSignals.updateTime.emit(self.convertTime(self.intro - timepassed))
+                        #self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
             except:
                 print("Error music")
             time.sleep(0.5)
@@ -82,7 +89,8 @@ class MusicProgress(Thread):
             self.onIntro = False
         self.timesong = duration
         try:
-            self.musicUI.updateMusic([artist,title])
+            eventSignals.newSong.emit([artist,title])
+            #self.musicUI.updateMusic([artist,title])
         except:
             print("Error new Song")
     

@@ -34,8 +34,8 @@ class Controller(Thread):
         self.clock = Clock(self)
         self.online = OnlineStatus(self)
         self.onair = AxiaOnair(self)
-        #self.musicprogress = MusicProgress(self.ui.music)
-        #self.newSong = NewSong(self.musicprogress)
+        self.musicprogress = MusicProgress()
+        self.newSong = NewSong(self.musicprogress)
         
     '''
     Start all the controllers
@@ -45,8 +45,8 @@ class Controller(Thread):
         self.clock.start()
         self.online.start()
         self.onair.start()
-        #self.musicprogress.start()
-        #self.newSong.start()
+        self.musicprogress.start()
+        self.newSong.start()
         
         while(self.running):    
             time.sleep(0.5)
@@ -54,8 +54,8 @@ class Controller(Thread):
         self.clock.join()
         self.online.join()
         self.onair.join()
-        #self.newSong.join()
-        #self.musicprogress.join()
+        self.newSong.join()
+        self.musicprogress.join()
             
     '''
     Stop all the controllers
@@ -66,8 +66,8 @@ class Controller(Thread):
         self.clock.stop()
         self.online.stop()
         self.onair.stop()
-        #self.newSong.stop()
-        #self.musicprogress.stop()
+        self.newSong.stop()
+        self.musicprogress.stop()
         
     '''
     Update the clock
