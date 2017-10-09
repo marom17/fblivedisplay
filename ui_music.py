@@ -133,4 +133,17 @@ class UI_Music(QFrame):
             self.progressBar["style"] = color
         except:
             print("Error")'''
+        if('intro' in color):
+            color = "blue"
+        elif('begin' in color):
+            color = "green"
+        elif('nend' in color):
+            color = "orange"
+        elif('end'):
+            color = "red"
+        else:
+            color = "yellow"
+            
+        colorString = "::chunk{background-color:"+color+"}"
         self.progressbar.setValue(value)
+        self.progressbar.setStyleSheet(colorString)
