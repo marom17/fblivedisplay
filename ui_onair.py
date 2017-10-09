@@ -39,7 +39,7 @@ class UI_Onair(QFrame):
     '''
     def drawOnair(self):
         
-        self.text = QLabel("Get Info")
+        self.text = QLabel("Get Info",self)
         self.text.setAlignment(Qt.AlignCenter)
         self.textFont = QFont("Times New Roman")
         self.textFont.setPixelSize(self.height()/3-10)

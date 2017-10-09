@@ -11,11 +11,11 @@ from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QFrame
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QFrame, QMainWindow
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 
-class UI(QWidget):
+class UI(QMainWindow):
     
     def __init__(self):
         super().__init__()
