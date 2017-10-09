@@ -49,7 +49,7 @@ class UI_Music(QFrame):
         self.musicFont.setPixelSize(self.height()/10)
 
         #artist
-        self.artist = QLabel("Artist",self)
+        self.artist = QLabel("",self)
         self.artist.setStyleSheet("color:white;")
         self.artist.setFont(self.musicFont)
         self.artist.setAlignment(Qt.AlignLeft)
@@ -57,7 +57,7 @@ class UI_Music(QFrame):
         self.artist.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
         #title
-        self.title = QLabel("Title",self)
+        self.title = QLabel("",self)
         self.title.setStyleSheet("color:white;")
         self.title.setFont(self.musicFont)
         self.title.setAlignment(Qt.AlignLeft)
@@ -65,7 +65,7 @@ class UI_Music(QFrame):
         self.title.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
         #time
-        self.time = QLabel("01:12",self)
+        self.time = QLabel("",self)
         self.time.setStyleSheet("color:white;")
         self.time.setFont(self.musicFont)
         self.time.setAlignment(Qt.AlignLeft)
@@ -76,7 +76,6 @@ class UI_Music(QFrame):
         #bar
         self.progressbar = QProgressBar(self)
         self.progressbar.setTextVisible(False)
-        #self.progressbar.setAlignment(Qt.AlignCenter)
         self.progressbar.setMinimumWidth(self.width()-10)
         self.progressbar.setMaximumWidth(self.width()-10)
         self.progressbar.setValue(0)
@@ -87,7 +86,6 @@ class UI_Music(QFrame):
         self.musicLayout.setAlignment(Qt.AlignCenter)
         self.musicLayout.setSpacing(10)
         self.musicLayout.setContentsMargins(0, 0, 0, 0)
-        #self.musicLayout.setSizeConstraint(QLayout.SetFixedSize)
         
                 
         self.musicLayout.addWidget(self.artist)
@@ -111,28 +109,19 @@ class UI_Music(QFrame):
     Update the music name
     ''' 
     def updateMusic(self,data):
-        #string = data[0].upper()+"/"+data[1]
         self.artist.setText(data[0].upper())
         self.title.setText(data[1])
-        '''self.artist.set(data[0].upper())
-        self.title.set(data[1])'''
         
     '''
     Update the time remaning
     '''
     def updateTime(self,time):
         self.time.setText(time)
-        'self.startTime.set(time)'
        
     '''
     Update the progress bar
     ''' 
     def updateBar(self,value,color):
-        '''try:
-            self.progress.set(value)
-            self.progressBar["style"] = color
-        except:
-            print("Error")'''
         if('intro' in color):
             color = "blue"
         elif('begin' in color):
