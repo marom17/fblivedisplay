@@ -6,7 +6,7 @@ __Description__: Clock UI
 
 """
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QFrame, QWidget
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtCore import Qt
 from signals import eventSignals
 
@@ -38,12 +38,15 @@ class UI_Clock(QFrame):
     Draw the frame
     '''
     def drawClock(self):
+        
+        id = QFontDatabase.addApplicationFont("SFDigitalReadout-Medium.ttf")
+        family = QFontDatabase.applicationFontFamilies(id)[0]
         #Clock text
         self.topText = QLabel(self)
         self.bottomText = QLabel(self)
         
-        self.clockFont = QFont("QuiverItal")
-        self.clockFont.setPixelSize(self.height()/3)
+        self.clockFont = QFont(family)
+        self.clockFont.setPixelSize(self.height()/2)
         
         self.topText.setMaximumSize(self.height(), self.width())
         self.bottomText.setMaximumSize(self.height(), self.width())
