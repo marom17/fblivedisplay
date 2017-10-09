@@ -49,41 +49,42 @@ class UI_Music(QFrame):
         self.musicFont.setPixelSize(self.height()/10)
 
         #artist
-        self.artist = QLabel("Artist")
-        self.artist.setStyleSheet("color:white;background-color:green;")
+        self.artist = QLabel("Artist",self)
+        self.artist.setStyleSheet("color:white;")
         self.artist.setFont(self.musicFont)
-        self.artist.setAlignment(Qt.AlignCenter)
-        self.artist.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
+        self.artist.setAlignment(Qt.AlignLeft)
+        self.artist.setMaximumWidth(self.width())
+        self.artist.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
         #title
-        self.title = QLabel("Title")
-        self.title.setStyleSheet("color:white;background-color:green;")
+        self.title = QLabel("Title",self)
+        self.title.setStyleSheet("color:white;")
         self.title.setFont(self.musicFont)
-        self.title.setAlignment(Qt.AlignCenter)
-        self.title.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
+        self.title.setAlignment(Qt.AlignLeft)
+        self.title.setMaximumWidth(self.width())
+        self.title.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
+        
         #time
-        self.time = QLabel("01:12")
-        self.time.setStyleSheet("color:white;background-color:green;")
+        self.time = QLabel("01:12",self)
+        self.time.setStyleSheet("color:white;")
         self.time.setFont(self.musicFont)
-        self.time.setAlignment(Qt.AlignCenter)
-        self.time.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Fixed)
+        self.time.setAlignment(Qt.AlignLeft)
+        self.time.setMaximumWidth(self.width())
+        self.time.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
                 
         #bar
-        self.progressbar = QProgressBar()
+        self.progressbar = QProgressBar(self)
         self.progressbar.setTextVisible(False)
-        self.progressbar.setAlignment(Qt.AlignCenter)
+        #self.progressbar.setAlignment(Qt.AlignCenter)
+        self.progressbar.setMinimumWidth(self.width()-10)
         self.progressbar.setMaximumWidth(self.width()-10)
         self.progressbar.setValue(0)
         self.progressbar.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
         #layout
         self.musicLayout = QVBoxLayout()
-        self.musicLayout.setAlignment(Qt.AlignVCenter)
-        self.musicLayout.setAlignment(self.artist,Qt.AlignCenter)
-        self.musicLayout.setAlignment(self.title,Qt.AlignCenter)
-        self.musicLayout.setAlignment(self.time,Qt.AlignCenter)
-        #self.musicLayout.setAlignment(self.progressbar,Qt.AlignCenter)
+        self.musicLayout.setAlignment(Qt.AlignCenter)
         self.musicLayout.setSpacing(10)
         self.musicLayout.setContentsMargins(0, 0, 0, 0)
         #self.musicLayout.setSizeConstraint(QLayout.SetFixedSize)
@@ -93,6 +94,12 @@ class UI_Music(QFrame):
         self.musicLayout.addWidget(self.title)
         self.musicLayout.addWidget(self.time)
         self.musicLayout.addWidget(self.progressbar)
+        
+        self.musicLayout.setAlignment(self.artist,Qt.AlignHCenter)
+        self.musicLayout.setAlignment(self.title,Qt.AlignHCenter)
+        self.musicLayout.setAlignment(self.time,Qt.AlignHCenter)
+        self.musicLayout.setAlignment(self.progressbar,Qt.AlignCenter)
+        
         self.artist.show()
         self.title.show()
         self.time.show()
