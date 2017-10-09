@@ -11,14 +11,19 @@ from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QFrame, QMainWindow
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QFrame, QMainWindow,\
+    QSplashScreen
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
 
 class UI(QMainWindow):
     
     def __init__(self):
         super().__init__()
+        
+        splash = QPixmap("splash.png")
+        splashscreen = QSplashScreen(splash)
+        splashscreen.show()
         self.setWindowTitle("FB Live Display")
         self.setWindowIcon(QIcon('fbld.ico'))
         if(not config.settingFullscreen):
@@ -33,6 +38,8 @@ class UI(QMainWindow):
             self.show()
         else:
             self.showFullScreen()
+        
+        splashscreen.finish(self)
     
     '''
     Exit the program with escape key
