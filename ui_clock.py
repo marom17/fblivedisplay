@@ -39,14 +39,14 @@ class UI_Clock(QFrame):
     '''
     def drawClock(self):
         
-        id = QFontDatabase.addApplicationFont("SFDigitalReadout-Medium.ttf")
+        id = QFontDatabase.addApplicationFont("QuiverItal Regular.ttf")
         family = QFontDatabase.applicationFontFamilies(id)[0]
         #Clock text
         self.topText = QLabel(self)
         self.bottomText = QLabel(self)
         
         self.clockFont = QFont(family)
-        self.clockFont.setPixelSize(self.height()/2)
+        self.clockFont.setPixelSize(self.height()/3)
         
         self.topText.setMaximumSize(self.height(), self.width())
         self.bottomText.setMaximumSize(self.height(), self.width())
