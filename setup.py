@@ -14,7 +14,7 @@ from cx_Freeze import setup, Executable
 # GUI applications require a different base on Windows (the default is for a
 # console application).
 base = None
-includefiles = ['newSong.xml','livedisplay.conf']
+includefiles = ['newSong.xml','livedisplay.conf','QuiverItal Regular.ttf','fbld.ico','splash.png']
 
 setup(  name = "FB Live Display",
         version = "0.6.0",
