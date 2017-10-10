@@ -71,8 +71,8 @@ class UI_Clock(QFrame):
         self.topText.setStyleSheet("color:red;")
         self.bottomText.setStyleSheet("color:red;")
         
-        self.topText.setText("12:30")
-        self.bottomText.setText("25")
+        self.topText.setText("")
+        self.bottomText.setText("")
         
         self.topText.show()
         self.bottomText.show()

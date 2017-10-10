@@ -7,10 +7,10 @@ __Description__: Get the actual music, display it and control startTime and bar
 """
 
 import time
-from threading import Thread
 from signals import eventSignals
+from PyQt5.QtCore import QThread
 
-class MusicProgress(Thread):
+class MusicProgress(QThread):
     '''
     Class MusicProgress
     functions:
@@ -20,7 +20,7 @@ class MusicProgress(Thread):
         - converTime(seconds)
     '''
     def __init__(self):
-        Thread.__init__(self)
+        super().__init__()
         
         self.running = True
         self.intro = 0

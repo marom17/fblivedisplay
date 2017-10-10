@@ -10,10 +10,10 @@ import ssl
 import config
 import urllib.request
 import json
-from threading import Thread
 import time
+from PyQt5.QtCore import QThread
 
-class OnlineStatus(Thread):
+class OnlineStatus(QThread):
     '''
     Class OnlineStatus
     function:
@@ -23,7 +23,7 @@ class OnlineStatus(Thread):
     '''       
     
     def __init__(self,controller):
-        Thread.__init__(self)
+        super().__init__()
         self.running = True
         self.controller = controller
     
