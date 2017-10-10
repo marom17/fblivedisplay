@@ -26,7 +26,7 @@ class UI_Clock(QFrame):
         self.setParent(parent)
         self.resize(parent.width()/3,parent.height())
         self.setStyleSheet("background-color:black;")
-        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setMaximumSize(parent.width()/3+1,parent.height())
         self.setAutoFillBackground(True)
         
         self.drawClock()
