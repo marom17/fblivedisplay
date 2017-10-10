@@ -35,16 +35,16 @@ class MusicProgress(Thread):
 
         while(self.running):
             try:
-                timepassed = (int(time.time()) - self.startTime)
+                timepassed = (time.time() - self.startTime)
                 
                 #check if the time passed is higher that the time song
                 if(timepassed <= self.timesong):
-                    progress = int((timepassed/float(self.timesong))*100)
+                    progress = (timepassed/float(self.timesong))*100
                     #check if we are on the intro
                     if(self.onIntro):
                         if(timepassed >= self.intro):
                             self.onIntro = False
-                        progress = int((timepassed/float(self.intro))*100)
+                        progress = (timepassed/float(self.intro))*100
                         eventSignals.updateBar.emit(progress,"intro")
                         eventSignals.updateTime.emit(self.convertTime(self.intro - timepassed))
                         #self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
@@ -68,7 +68,7 @@ class MusicProgress(Thread):
                         #self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
             except:
                 print("Error music")
-            time.sleep(0.5)
+            time.sleep(0.02)
      
     '''
     Stop the while loop of the controler
