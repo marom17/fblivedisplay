@@ -85,7 +85,7 @@ class Controller(Thread):
         try:
             if(newStatus):
                 if(newStatus[1]):
-                    eventSignals.online.emit("Online", "green")
+                    eventSignals.online.emit("Online", "lime")
                     #self.ui.online.updateOnline("Online", "green")
                 else:
                     eventSignals.online.emit("Offline", "red")
