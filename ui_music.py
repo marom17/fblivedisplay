@@ -125,7 +125,7 @@ class UI_Music(QFrame):
         if('intro' in color):
             color = "blue"
         elif('begin' in color):
-            color = "green"
+            color = "lime"
         elif('nend' in color):
             color = "orange"
         elif('end'):
