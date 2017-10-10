@@ -7,10 +7,10 @@ __Description__: Give the current time
 """
 
 import time
-from threading import Thread
 from signals import eventSignals
+from PyQt5.QtCore import QThread
 
-class Clock(Thread):
+class Clock(QThread):
     '''
     Class Clock
     functions:
@@ -19,7 +19,7 @@ class Clock(Thread):
         - stop()
     '''
     def __init__(self,controller):
-        Thread.__init__(self)
+        super().__init__()
         self.running = True
         self.controller = controller
         

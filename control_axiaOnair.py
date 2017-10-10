@@ -8,10 +8,10 @@ __Description__: Check if the micros are open
 
 import socket
 import config
-from threading import Thread
 import time
+from PyQt5.QtCore import QThread
 
-class AxiaOnair(Thread):
+class AxiaOnair(QThread):
     
     '''
     Class AxiaOnair
@@ -20,7 +20,7 @@ class AxiaOnair(Thread):
         - stop()
     '''
     def __init__(self,controller):
-        Thread.__init__(self)
+        super().__init__()
         self.controller = controller
         self.socket = None
         self.running = True

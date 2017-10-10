@@ -6,7 +6,6 @@ __Description__: Update all systems
 @todo: put updateClock, updateOnline and updateOnair in sub controllers
 """
 
-from threading import Thread
 import time
 from signals import eventSignals
 from control_clock import Clock
@@ -14,8 +13,9 @@ from control_studioStatus import OnlineStatus
 from control_axiaOnair import AxiaOnair
 from control_musicPorgress import MusicProgress
 from control_newSong import NewSong
+from PyQt5.QtCore import QThread
 
-class Controller(Thread):
+class Controller(QThread):
     '''
     Class Controller
     functions:
@@ -26,7 +26,7 @@ class Controller(Thread):
         - updateOnair(newStatus)
     '''
     def __init__(self, ui):
-        Thread.__init__(self)
+        super().__init__()
         
         self.ui = ui
         self.running = True
@@ -51,11 +51,11 @@ class Controller(Thread):
         while(self.running):    
             time.sleep(0.5)
         
-        self.clock.join()
-        self.online.join()
-        self.onair.join()
-        self.newSong.join()
-        self.musicprogress.join()
+        self.clock.wait()
+        self.online.wait()
+        self.onair.wait()
+        self.newSong.wait()
+        self.musicprogress.wait()
             
     '''
     Stop all the controllers

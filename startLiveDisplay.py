@@ -29,9 +29,8 @@ updateManager = Controller(userInterface)
 
 updateManager.start()
 app.exec_()
-#userInterface.join()
 updateManager.stop()
-updateManager.join()
+updateManager.wait()
 
 
 print("Stop LiveDisplay")

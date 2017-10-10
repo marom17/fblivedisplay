@@ -8,11 +8,11 @@ __Description__: Get the actual music, display it and control time and bar
 
 import time
 import config
-from threading import Thread
 import xml.etree.ElementTree as ET
 #import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from PyQt5.QtCore import QThread
 
 class NewSongHandler(FileSystemEventHandler):
     def __init__(self,songcontrol):
@@ -25,7 +25,7 @@ class NewSongHandler(FileSystemEventHandler):
             time.sleep(0.2)
             self.songcontrol.readXml()
 
-class NewSong(Thread):
+class NewSong(QThread):
     '''
     Class NewSong
     functions:
@@ -35,7 +35,7 @@ class NewSong(Thread):
     '''
     
     def __init__(self,controlprogress):
-        Thread.__init__(self)
+        super().__init__()
         
         self.running = True
         self.controlprogress = controlprogress
