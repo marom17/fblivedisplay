@@ -24,7 +24,7 @@ class UI_Online(QFrame):
         self.setParent(parent)
         self.resize(parent.width()/3,parent.height())
         self.setStyleSheet("background-color:orange;")
-        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setMaximumSize(parent.width()/3+1,parent.height())
         self.setAutoFillBackground(True)
         
         self.drawOnline()

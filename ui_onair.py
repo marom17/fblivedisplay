@@ -25,7 +25,7 @@ class UI_Onair(QFrame):
         self.setParent(parent)
         self.resize(parent.width(),parent.width()/3)
         self.setStyleSheet("background-color:orange;")
-        self.setMaximumSize(parent.width()/3,parent.height())
+        self.setMaximumSize(parent.width()/3+1,parent.height())
         self.setAutoFillBackground(True)
         
         self.drawOnair()
