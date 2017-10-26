@@ -47,25 +47,23 @@ class MusicProgress(QThread):
                         progress = (timepassed/float(self.intro))*100
                         eventSignals.updateBar.emit(progress,"intro")
                         eventSignals.updateTime.emit(self.convertTime(self.intro - timepassed))
-                        #self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        #self.musicUI.updateTime(self.convertTime(self.intro - timepassed))
                     else:
                         
                         #change the color of the progressbar on the progress of the song
-                        if(progress<70):
+                        if(progress<95):
                             eventSignals.updateBar.emit(progress,"begin")
-                            #self.musicUI.updateBar(progress,"begin.Horizontal.TProgressbar")
-                        elif(progress<85):
+                        elif(progress<97):
                             eventSignals.updateBar.emit(progress,"nend")
-                            #self.musicUI.updateBar(progress,"nend.Horizontal.TProgressbar")
                         elif(progress<100):
+                            print(progress)
                             eventSignals.updateBar.emit(progress,"end")
-                            #self.musicUI.updateBar(progress,"end.Horizontal.TProgressbar")
                         else:
-                            eventSignals.updateBar.emit(progress,"end")
-                            #self.musicUI.updateBar(progress,"intro.Horizontal.TProgressbar")
-                        eventSignals.updateTime.emit(self.convertTime(self.intro - timepassed))
-                        #self.musicUI.updateTime(self.convertTime(self.timesong - timepassed))
+                            progress = 100
+                            eventSignals.updateBar.emit(progress,"intro")
+                        eventSignals.updateTime.emit(self.convertTime(self.timesong - timepassed))
+                else:
+                    progress = 100
+                    eventSignals.updateBar.emit(progress,"intro")
             except:
                 print("Error music")
             time.sleep(0.02)
