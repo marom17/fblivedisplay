@@ -104,19 +104,11 @@ class Controller(QThread):
             if(newStatus != 2):
                 if(newStatus == 0):
                     eventSignals.onair.emit("OffAir", "black")
-                    #self.ui.onair.updateOnair("OffAir", "black")
-                    # self.ui.updateOnaire("OffAir","black")
                 elif(newStatus == 1):
                     eventSignals.onair.emit("OnAir", "red")
-                    #self.ui.onair.updateOnair("OnAir", "red")
-                        # self.ui.updateOnaire("OnAir","red")
                 else:
                     eventSignals.onair.emit("Error", "yellow")
-                    #self.ui.onair.updateOnair("Error", "yellow")
-                    # self.ui.updateOnaire("Error","yellow")
             else:
                 eventSignals.onair.emit("Error\nNo connection", "yellow")
-                #self.ui.onair.updateOnair("Error\nNo connection", "yellow")
-                # self.ui.updateOnaire("Error\nNo connection","yellow")
         except:
             print("Error")

@@ -47,22 +47,28 @@ class AxiaOnair(QThread):
                 
             try:
                 #check the GPO and send the result
-                self.socket.sendall("GPO "+config.axiagpio+"\r\n")
+                cmd = 'GPO '+config.axiagpio + '\r\n'
+                self.socket.sendall(cmd.encode('utf-8'))
                 data = self.socket.recv(2048)
-                if not data: continue
-                stringdata = data.decode('utf-8')
-                
-                gpo = "GPO " + config.axiagpio
-                if gpo in stringdata:
-                    if("lhhhh" in stringdata):
-                        #micros are on
-                        self.controller.updateOnair(1)
-                    if("hhhhh" in stringdata):
-                        #micro are off
-                        self.controller.updateOnair(0)   
+                try:
+                    if not data: continue
+                    stringdata = data.decode('utf-8')
+                    
+                    gpo = "GPO " + config.axiagpio
+                    if gpo in stringdata:
+                        if("lhhhh" in stringdata):
+                            #micros are on
+                            self.controller.updateOnair(1)
+                        if("hhhhh" in stringdata):
+                            #micro are off
+                            self.controller.updateOnair(0)
+                except:
+                    self.controller.updateOnair(3)
+                    print("Error Data")
+            except Exception as e: print(e)
             except:
-                self.controller.updateOnair(3)
-                print("Error Data")
+                self.controller.updateOnair(2)
+                print("Error retrieve data")
             self.socket.close()
             time.sleep(0.5)
     '''
