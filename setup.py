@@ -1,18 +1,3 @@
-
-from distutils.core import setup
-import py2exe
-
-setup(name="FB Live Display",
-      version ="0.6.0",
-      description="Display information about studio status and music",
-      data_files=[".\\livedisplay.conf",".\\newSong.xml"],
-      windows=[{
-          "script": 'startLiveDisplay.py',
-          "dest_base": 'LiveDisplay',
-          "copyright": "(c) 2017 Romain Maillard"
-          }])
-#setup(windows=['startLiveDisplay.py'])
-'''
 import sys
 from cx_Freeze import setup, Executable
 
@@ -22,12 +7,17 @@ from cx_Freeze import setup, Executable
 # GUI applications require a different base on Windows (the default is for a
 # console application).
 base = None
-includefiles = ['newSong.xml','livedisplay.conf']
+includefiles = ['newSong.xml','livedisplay.conf','QuiverItal Regular.ttf']
 
 setup(  name = "FB Live Display",
         version = "0.6.0",
         description = "Display information about studio status and music",
-        author = "Romain Maillard",
+        copyright="(c) Romain Maillard 2017",
+        #author = "Romain Maillard",
         options = {"build_exe": {'include_files':includefiles}},
-        executables = [Executable("startLiveDisplay.py", base="Win32GUI",targetName="LiveDisplay.exe")])
-'''
+        executables = [Executable(
+        "startLiveDisplay.py", 
+        base="Win32GUI",
+        copyright="(c) Romain Maillard 2017",
+        targetName="LiveDisplay.exe"
+        )])
