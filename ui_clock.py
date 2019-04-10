@@ -5,8 +5,8 @@ __Name__: ui_clock.py
 __Description__: Clock UI
 
 """
-
-from Tkinter import *
+import tkinter
+from tkinter import *
 
 class UI_Clock():
     '''

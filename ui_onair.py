@@ -5,8 +5,8 @@ __Name__: ui_onair.py
 __Description__: Onair UI
 
 """
-
-from Tkinter import *
+import tkinter
+from tkinter import *
 
 class UI_Onair():
     '''
@@ -26,7 +26,7 @@ class UI_Onair():
     '''
     def drawOnair(self):
         self.frameOnair.pack_propagate(False)
-        self.frameOnair.grid(row=0,column=2)
+        #self.frameOnair.grid(row=0,column=2)
         #self.frameOnair.place(rely=0)
         self.frameOnair.pack(side="left",expand=True,fill='both')
         self.champ_onair.place(relx=.5, rely=.5, anchor="c")

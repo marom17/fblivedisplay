@@ -8,7 +8,7 @@ __Description__: Check if the studio is online
 
 import ssl
 import config
-import httplib
+from http import client
 import json
 from threading import Thread
 import time
@@ -43,7 +43,7 @@ class OnlineStatus(Thread):
         port = config.commutport
         url = config.commuturl+config.commutchan
         #create an HTTPS connection with the commutation
-        c = httplib.HTTPSConnection(host,port,context=ssl._create_unverified_context(),timeout=1)
+        c = client.HTTPSConnection(host,port,context=ssl._create_unverified_context(),timeout=1)
         try:
             c.request("GET", url)
             response = c.getresponse()

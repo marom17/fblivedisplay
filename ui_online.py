@@ -5,8 +5,8 @@ __Name__: ui_online.py
 __Description__: Online UI
 
 """
-
-from Tkinter import *
+import tkinter
+from tkinter import *
 
 class UI_Online():
     '''
@@ -27,7 +27,7 @@ class UI_Online():
     def drawOnline(self):
         
         self.frameOnline.pack_propagate(False)
-        self.frameOnline.grid(row=0,column=3)
+        #self.frameOnline.grid(row=0,column=3)
         #self.frameOnline.place(rely=0)
         self.frameOnline.pack(side="left",expand=True,fill='both')
         self.champ_online.place(relx=.5, rely=.5, anchor="c")

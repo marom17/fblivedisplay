@@ -5,9 +5,9 @@ __Name__: ui_music.py
 __Description__: Music UI
 
 """
-
-from Tkinter import *
-import ttk
+import tkinter
+from tkinter import *
+from tkinter import ttk as ttk
 
 class UI_Music():
     '''
@@ -95,4 +95,4 @@ class UI_Music():
             self.progress.set(value)
             self.progressBar["style"] = color
         except:
-            print "Error"
+            print("Error")

@@ -5,17 +5,17 @@ __Name__: ui.py
 __Description__: User interface
 
 """
-
-from Tkinter import *
-from threading import Thread
+import tkinter
+from tkinter import *
 from ui_clock import UI_Clock
 from ui_onair import UI_Onair
 from ui_online import UI_Online
 from ui_music import UI_Music
 import config
 import sys
+from controller import Controller
 
-class UI(Thread):
+class UI():
     '''
     Class UI
     functions:
@@ -26,7 +26,6 @@ class UI(Thread):
         - drawottomFrame()
     '''
     def __init__(self):
-        Thread.__init__(self)
         self.mainWindow = Tk()
         #check if we active fullscreen
         if(not config.settingFullscreen):
@@ -44,19 +43,25 @@ class UI(Thread):
     '''
     Draw the main window and all the subview
     '''
-    def run(self):
-        print "Start UI"
+    def start(self):
+        print("Start UI")
         #self.drawFrame()
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
         self.drawFrame()
+        #start the controllers
+        updateManager = Controller(self)
+
+        updateManager.start()
         try:
             self.mainWindow.mainloop()
         except:
-            print "Unexpected error:", sys.exc_info()[0]
+            print("Unexpected error:", sys.exc_info()[0])
+        updateManager.stop()
+        updateManager.join()
     
     def drawMainWindow(self):
-        print "Start UI"
+        print("Start UI")
         #self.drawFrame()
         self.mainWindow.update_idletasks()
         self.mainWindow.update()
@@ -64,7 +69,7 @@ class UI(Thread):
         try:
             self.mainWindow.mainloop()
         except:
-            print "Unexpected error:", sys.exc_info()[0]
+            print("Unexpected error:", sys.exc_info()[0])
     '''
     Monitor the key that are pressed
     '''
@@ -79,7 +84,7 @@ class UI(Thread):
                 message = Label(toplevel,text="Coucou")
                 message.pack()
         except:
-            print "Error"
+            print("Error")
     
     '''
     Draw the window

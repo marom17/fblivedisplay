@@ -40,7 +40,7 @@ class AxiaOnair(Thread):
                 self.socket.close()
                 #Error message on UI
                 self.controller.updateOnair(2)
-                print "No connection"
+                print("No connection")
                 time.sleep(3)
                 continue
                 #break;
@@ -62,7 +62,7 @@ class AxiaOnair(Thread):
                         self.controller.updateOnair(0)   
             except:
                 self.controller.updateOnair(3)
-                print "Error Data"
+                print("Error Data")
             self.socket.close()
             time.sleep(0.5)
     '''
