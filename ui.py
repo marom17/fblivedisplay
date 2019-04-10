@@ -50,15 +50,14 @@ class UI():
         self.mainWindow.update()
         self.drawFrame()
         #start the controllers
-        updateManager = Controller(self)
+        self.updateManager = Controller(self)
 
-        updateManager.start()
+        self.updateManager.start()
         try:
+            self.mainWindow.protocol("WM_DELETE_WINDOW", self.on_closing) 
             self.mainWindow.mainloop()
         except:
             print("Unexpected error:", sys.exc_info()[0])
-        updateManager.stop()
-        updateManager.join()
     
     def drawMainWindow(self):
         print("Start UI")
@@ -118,5 +117,13 @@ class UI():
         
         self.music = UI_Music(self.mainWindow.winfo_width(),self.mainWindow.winfo_height(),self.frameBottom)
         self.music.drawMusic()
+
+    '''
+    Stop controller when closing the window
+    '''
+    def on_closing(self):
+        self.updateManager.stop()
+        self.updateManager.join()
+        self.mainWindow.destroy()
         
         
