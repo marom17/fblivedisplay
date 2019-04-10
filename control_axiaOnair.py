@@ -47,7 +47,8 @@ class AxiaOnair(Thread):
                 
             try:
                 #check the GPO and send the result
-                self.socket.sendall("GPO "+config.axiagpio+"\r\n")
+                cmd = "GPO "+config.axiagpio+"\r\n"
+                self.socket.sendall(str.encode(cmd))
                 data = self.socket.recv(2048)
                 if not data: continue
                 stringdata = data.decode('utf-8')
@@ -60,8 +61,9 @@ class AxiaOnair(Thread):
                     if("hhhhh" in stringdata):
                         #micro are off
                         self.controller.updateOnair(0)   
-            except:
+            except Exception as e:
                 self.controller.updateOnair(3)
+                print(e)
                 print("Error Data")
             self.socket.close()
             time.sleep(0.5)
