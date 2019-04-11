@@ -22,7 +22,11 @@ class NewSongHandler(FileSystemEventHandler):
     def on_modified(self, event):
         #check if the modification is made on the xml file
         if(config.winmediafile in event.src_path):
-            self.songcontrol.readXml()
+            try:
+                self.songcontrol.readXml()
+            except Exception as e:
+                print(e)
+                pass
 
 class NewSong(Thread):
     '''
