@@ -7,6 +7,7 @@ __Description__: Clock UI
 """
 import tkinter
 from tkinter import *
+import pyglet
 
 class UI_Clock():
     '''
@@ -17,6 +18,8 @@ class UI_Clock():
     '''
     
     def __init__(self,height,parent):
+        pyglet.font.add_file('QuiverItal Regular.ttf')
+        pyglet.font.load('QuiverItal')
         self.timeTop = StringVar()
         self.timeBottom = StringVar()
         self.timeTop.set("")
