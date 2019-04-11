@@ -72,8 +72,8 @@ class MusicProgress(Thread):
     '''
     Parse the new song information
     '''
-    def newSong(self,intro,duration,title,artist):
-        self.startTime = int(time.time())
+    def newSong(self,intro,duration,title,artist,start):
+        self.startTime = int(start)
         self.intro = intro
         #check if there is an intro to the song
         if(intro > 0):

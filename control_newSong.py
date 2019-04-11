@@ -76,6 +76,7 @@ class NewSong(Thread):
             artist = tree.findtext("artist")
             intro = int(tree.findtext("intro"))
             duration = int(tree.findtext("duration"))
-            self.controlprogress.newSong(intro,duration,title,artist)
+            start = int(tree.findtext("start"))
+            self.controlprogress.newSong(intro,duration,title,artist,start)
         except IOError:
             print("No xml file found")
